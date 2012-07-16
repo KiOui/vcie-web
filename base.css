@@ -1,0 +1,28 @@
+body {
+	background-color: #f0fff0; /* #28067C;  /* #ff55ff; */ /* #c0ff33; */
+}
+#content {
+	background-color: #004301;
+	text-align: center;
+	width: 900px;
+	margin: 0 auto;
+	height: 100%;
+	color: #f0f0f0;
+	padding: 1em 2em;
+	border-radius: 4px;
+
+}
+h1 {
+	font-family: 'Antic Slab', serif;
+	font-size: 50pt;
+	padding-left: 0.5em;
+	font-weight: bold;
+}
+h2 {
+	font-family: 'Antic Slab', serif;
+	font-size: 30pt;
+	font-style: italic;
+	padding-left: 0.5em;
+	font-weight: bold;
+	text-align: left;
+}
