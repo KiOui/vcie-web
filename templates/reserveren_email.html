@@ -1,0 +1,57 @@
+{{ formdata.naam }} van {{ formdata.vereniging }} wil graag de volgende bestelling doen:
+
+{% if formdata.kantine %}kantine: {{ formdata.kantine }}
+{% endif %}
+
+{% if formdata.gelegenheid %}gelegenheid: {{ formdata.gelegenheid }}
+{% endif %}
+{% if formdata.vereniging %}vereniging: {{ formdata.vereniging }}
+{% endif %}
+{% if formdata.opmerkingen %}opmerkingen: {{ formdata.opmerkingen }}
+{% endif %}
+
+{% if formdata.krattenBier %}krattenBier: {{ formdata.krattenBier }}
+{% endif %}
+{% if formdata.rodeWijn %}rodeWijn: {{ formdata.rodeWijn }}
+{% endif %}
+{% if formdata.witteWijnZoet %}witteWijnZoet: {{ formdata.witteWijnZoet }}
+{% endif %}
+{% if formdata.witteWijnDroog %}witteWijnDroog: {{ formdata.witteWijnDroog }}
+{% endif %}
+{% if formdata.colaRegular %}colaRegular: {{ formdata.colaRegular }}
+{% endif %}
+{% if formdata.colaLight %}colaLight: {{ formdata.colaLight }}
+{% endif %}
+{% if formdata.fanta %}fanta: {{ formdata.fanta }}
+{% endif %}
+{% if formdata.sprite %}sprite: {{ formdata.sprite }}
+{% endif %}
+{% if formdata.spaRood %}spaRood: {{ formdata.spaRood }}
+{% endif %}
+{% if formdata.appelsap %}appelsap: {{ formdata.appelsap }}
+{% endif %}
+{% if formdata.sinaasappelsap %}sinaasappelsap: {{ formdata.sinaasappelsap }}
+{% endif %}
+{% if formdata.cassis %}cassis: {{ formdata.cassis }}
+{% endif %}
+{% if formdata.iceTeaSparkling %}iceTeaSparkling: {{ formdata.iceTeaSparkling }}
+{% endif %}
+{% if formdata.iceTeaNoBubbles %}iceTeaNoBubbles: {{ formdata.iceTeaNoBubbles }}
+{% endif %}
+{% if formdata.rioFiestaMix %}rioFiestaMix: {{ formdata.rioFiestaMix }}
+{% endif %}
+{% if formdata.AHCocktailNoten %}AHCocktailNoten: {{ formdata.AHCocktailNoten }}
+{% endif %}
+
+{% if formdata.stapelglazen %}stapelglazen: {{ formdata.stapelglazen }}
+{% endif %}
+{% if formdata.wijnglazen %}wijnglazen: {{ formdata.wijnglazen }}
+{% endif %}
+{% if formdata.muziekkastsleutel %}muziekkastsleutel {{ formdata.kantine }}
+{% endif %}
+{% if formdata.statafels %}statafels: {{ formdata.statafels }}
+{% endif %}
+{% if formdata.warmhoudbakken %}warmhoudbakken
+{% endif %}
+{% if formdata.brandpasta %}brandpasta
+{% endif %}

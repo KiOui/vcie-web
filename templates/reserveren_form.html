@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Voorraadcie.nl
+{% endblock %}
+
+{% block head %}
+{{ block.super }}
+<style type="text/css">
+form ul {
+	list-style: none;
+	margin-left: 0;
+	padding-left: 1em;
+}
+
+form ul > li {
+	border-left: solid 1px #aaa;
+	padding-left: 1em;
+	vertical-align: top;
+}
+
+form ul > li label {
+	padding: 4px 0;
+}
+
+form ul > li .error {
+	display: inline-block;
+	color: #f82020;
+}
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<form action="reserveren.php" method="post">
+{% csrf_token %}
+
+
+<h2>Reserveren</h2>
+
+<h3>Algemeen</h3>
+
+<ul>
+	<li>
+		<label for="naam">Naam</label>
+		<input id="naam" type="text" name="naam" value="{{ formdata.naam }}" placeholder="naam" required />
+		<div class="error">{% if errors.naam %}{{ errors.naam|join }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="email">Email</label>
+		<input id="email" type="email" name="email" value="{{ formdata.email }}" placeholder="email" required />
+		<div class="error">{% if errors.email %}{{ errors.email|join }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="gelegenheid">Gelegenheid</label>
+		<input id="gelegenheid" type="text" name="gelegenheid" value="{{ formdata.gelegenheid }}" placeholder="gelegenheid" required />
+		<div class="error">{% if errors.gelegenheid %}{{ errors.gelegenheid|join }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="vereniging">Vereniging <small>(of afdeling ofzo)</small></label>
+		<input id="vereniging" type="text" list="verenigingList" name="vereniging" value="{{ formdata.vereniging }}" placeholder="vereniging" required />
+		<div class="error">{% if errors.vereniging %}{{ errors.vereniging|join }}{% endif %}</div>
+		<datalist id="verenigingList">
+		  <option value="Sigma">
+		  <option value="Beevee">
+		  <option value="Thalia">
+		  <option value="Marie-Curie">
+		  <option value="Leonardo">
+		  <option value="Desda">
+		  <option value="Olympus">
+		</datalist>
+	</li>
+	<li>
+		<label for="kantine">Kantine</label>
+		<select id="kantine" name="kantine">
+			<option value="geen"{% if form.kantine == '' %} selected{% endif %}>geen</option>
+			<option value="zuidkantine"{% if form.kantine == 'zuid' %} selected{% endif %}>Zuid</option>
+			<option value="noordkantine"{% if form.kantine == 'noord' %} selected{% endif %}>Noord</option>
+		</select>
+		<div class="error">{% if errors.kantine %}{{ errors.kantine|join }}{% endif %}</div>
+	</li>
+</ul>
+
+<h3>Drank en eten (vul getallen in)</h3>
+
+<ul>
+	<li>
+		<label for="krattenBier">Kratten bier</label>
+		<input id="krattenBier" type="number" name="krattenBier" value="{{ formdata.krattenBier }}" placeholder="kratten bier" min="0" />
+		<div class="error">{% if errors.krattenBier %}{{ errors.krattenBier|join }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="rodeWijn">Rode wijn</label>
+		<input id="rodeWijn" type="number" name="rodeWijn" value="{{ formdata.rodeWijn }}" placeholder="rode wijn" min="0" />
+		<div class="error">{% if errors.rodeWijn %}{{ errors.rodeWijn|join }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="witteWijnZoet">Witte wijn (zoet)</label>
+		<input id="witteWijnZoet" type="number" name="witteWijnZoet" value="{{ formdata.witteWijnZoet }}" placeholder="witte wijn (zoet)" min="0" />
+		<div class="error">{% if errors.witteWijnZoet %}{{ errors.witteWijnZoet|join }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="witteWijnDroog">Witte wijn (droog)</label>
+		<input id="witteWijnDroog" type="number" name="witteWijnDroog" value="{{ formdata.witteWijnDroog }}" placeholder="witte wijn (droog)" min="0" />
+		<div class="error">{% if errors.witteWijnDroog %}{{ errors.witteWijnDroog|join }}{% endif %}</div>
+	</li>
+	<h4>
+		Fris
+		<small class="link" onclick="$('.fris input').prop('value', function (a, b) { return 2; });">(doe maar alles 2)</small>
+	</h4>
+	<li class="fris">
+		<label for="colaRegular">Cola regular</label>
+		<input id="colaRegular" type="number" name="colaRegular" value="{{ formdata.colaRegular }}" placeholder="cola regular" min="0" />
+		<div class="error">{% if errors.colaRegular %}{{ errors.colaRegular|join }}{% endif %}</div>
+	</li>
+	<li class="fris">
+		<label for="colaLight">Cola light</label>
+		<input id="colaLight" type="number" name="colaLight" value="{{ formdata.colaLight }}" placeholder="cola light" min="0" />
+		<div class="error">{% if errors.colaLight %}{{ errors.colaLight|join }}{% endif %}</div>
+	</li>
+	<li class="fris">
+		<label for="fanta">Fanta</label>
+		<input id="fanta" type="number" name="fanta" value="{{ formdata.fanta }}" placeholder="fanta" min="0" />
+		<div class="error">{% if errors.fanta %}{{ errors.fanta|join }}{% endif %}</div>
+	</li>
+	<li class="fris">
+		<label for="sprite">Sprite</label>
+		<input id="sprite" type="number" name="sprite" value="{{ formdata.sprite }}" placeholder="sprite" min="0" />
+		<div class="error">{% if errors.sprite %}{{ errors.sprite|join }}{% endif %}</div>
+	</li>
+	<li class="fris">
+		<label for="spaRood">Spa rood</label>
+		<input id="spaRood" type="number" name="spaRood" value="{{ formdata.spaRood }}" placeholder="spa rood" min="0" />
+		<div class="error">{% if errors.spaRood %}{{ errors.spaRood|join }}{% endif %}</div>
+	</li>
+	<li class="fris">
+		<label for="appelsap">Appelsap</label>
+		<input id="appelsap" type="number" name="appelsap" value="{{ formdata.appelsap }}" placeholder="appelsap" min="0" />
+		<div class="error">{% if errors.appelsap %}{{ errors.appelsap|join }}{% endif %}</div>
+	</li>
+	<li class="fris">
+		<label for="sinaasappelsap">Sinaasappelsap</label>
+		<input id="sinaasappelsap" type="number" name="sinaasappelsap" value="{{ formdata.sinaasappelsap }}" placeholder="sinaasappelsap" min="0" />
+		<div class="error">{% if errors.sinaasappelsap %}{{ errors.sinaasappelsap|join }}{% endif %}</div>
+	</li>
+	<li class="fris">
+		<label for="cassis">Cassis</label>
+		<input id="cassis" type="number" name="cassis" value="{{ formdata.cassis }}" placeholder="cassis" min="0" />
+		<div class="error">{% if errors.cassis %}{{ errors.cassis|join }}{% endif %}</div>
+	</li>
+	<li class="fris">
+		<label for="iceTeaSparkling">Ice tea (sparkling)</label>
+		<input id="iceTeaSparkling" type="number" name="iceTeaSparkling" value="{{ formdata.iceTeaSparkling }}" placeholder="ice tea (sparkling)" min="0" />
+		<div class="error">{% if errors.iceTeaSparkling %}{{ errors.iceTeaSparkling|join }}{% endif %}</div>
+	</li>
+	<li class="fris">
+		<label for="iceTeaNoBubbles">Ice tea (no bubbles)</label>
+		<input id="iceTeaNoBubbles" type="number" name="iceTeaNoBubbles" value="{{ formdata.iceTeaNoBubbles }}" placeholder="ice tea (no bubbles)" min="0" />
+		<div class="error">{% if errors.iceTeaNoBubbles %}{{ errors.iceTeaNoBubbles|join }}{% endif %}</div>
+	</li>
+	<br />
+	<li>
+		<label for="rioFiestaMix">Rio fiesta mix (1 kg)</label>
+		<input id="rioFiestaMix" type="number" name="rioFiestaMix" value="{{ formdata.rioFiestaMix }}" placeholder="rio fiesta mix (1 kg)" min="0" />
+		<div class="error">{% if errors.rioFiestaMix %}{{ errors.rioFiestaMix|join }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="AHCocktailNoten">Cocktail noten</label>
+		<input id="AHCocktailNoten" type="number" name="AHCocktailNoten" value="{{ formdata.AHCocktailNoten }}" placeholder="cocktail noten" min="0" />
+		<div class="error">{% if errors.AHCocktailNoten %}{{ errors.AHCocktailNoten|join }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="stapelglazen">Krat stapelglazen</label>
+		<input id="stapelglazen" type="number" name="stapelglazen" value="{{ formdata.stapelglazen }}" placeholder="krat stapelglazen" min="0" />
+		<div class="error">{% if errors.stapelglazen %}{{ errors.stapelglazen|join }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="wijnglazen">Krat wijnglazen</label>
+		<input id="wijnglazen" type="number" name="wijnglazen" value="{{ formdata.wijnglazen }}" placeholder="krat wijnglazen" min="0" />
+		<div class="error">{% if errors.wijnglazen %}{{ errors.wijnglazen|join }}{% endif %}</div>
+	</li>
+</ul>
+
+<h3>Extra's</h3>
+
+<ul>
+	<li>
+		<label for="muziekkastsleutel">Muziekkastsleutel</label>
+		<input id="muziekkastsleutel" type="checkbox" name="muziekkastsleutel"{% if form.muziekkastsleutel %} checked{% endif %} />
+		<div class="error">{% if errors.muziekkastsleutel %}{{ errors.muziekkastsleutel|join }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="statafels">Statafels</label>
+		<input id="statafels" type="number" name="statafels" value="{{ formdata.statafels }}" min="0" />
+		<div class="error">{% if errors.statafels %}{{ errors.statafels|join }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="warmhoudbakken">Warmhoudbakken</label>
+		<input id="warmhoudbakken" type="checkbox" name="warmhoudbakken"{% if form.warmhoudbakken %} checked{% endif %} />
+		<div class="error">{% if errors.warmhoudbakken %}{{ errors.warmhoudbakken|join }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="brandpasta">Brandpasta <small>(voor warmhoudbakken)</small></label>
+		<input id="brandpasta" type="checkbox" name="brandpasta"{% if form.brandpasta %} checked{% endif %} />
+		<div class="error">{% if errors.brandpasta %}{{ errors.brandpasta|join }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="opmerkingen">Opmerkingen</label>
+		<textarea id="opmerkingen" name="opmerkingen" value="{{ formdata.opmerkingen }}" placeholder="opmerkingen" cols="40"></textarea>
+		<div class="error">{% if errors.opmerkingen %}{{ errors.opmerkingen|join }}{% endif %}</div>
+	</li>
+	
+	
+</ul>
+
+<input type="submit" name="submit" value="{{ formdata.submit|default 'Versturen' }}" />
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Voorraadcie.nl
+{% endblock %}
+
+{% block head %}
+{{ block.super }}
+<style type="text/css">
+form ul {
+	list-style: none;
+	margin-left: 0;
+	padding-left: 1em;
+}
+
+form ul > li {
+	border-left: solid 1px #aaa;
+	padding-left: 1em;
+	vertical-align: top;
+}
+
+form ul > li label {
+	padding: 4px 0;
+}
+
+form ul > li .error {
+	display: inline-block;
+	color: #f82020;
+}
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<h2>Reservering bevestigen</h2>
+
+<p>De volgende email zal gestuurd worden</p>
+
+<pre>
+{% include 'reserveren_email.html' %}
+</pre>
+
+<form action="reserveren.php" method="post">
+	{% csrf_token %}
+	
+	<input type="hidden" name="confirm" />
+	<input type="hidden" name="naam" value="{{ formdata.naam }}" />
+	<input type="hidden" name="email" value="{{ formdata.email }}" />
+	<input type="hidden" name="gelegenheid" value="{{ formdata.gelegenheid }}" />
+	<input type="hidden" name="vereniging" value="{{ formdata.vereniging }}" />
+	<input type="hidden" name="kantine" value="{{ formdata.kantine }}" />
+	<input type="hidden" name="krattenBier" value="{{ formdata.krattenBier }}" />
+	<input type="hidden" name="rodeWijn" value="{{ formdata.rodeWijn }}" />
+	<input type="hidden" name="witteWijnZoet" value="{{ formdata.witteWijnZoet }}" />
+	<input type="hidden" name="witteWijnDroog" value="{{ formdata.witteWijnDroog }}" />
+	<input type="hidden" name="colaRegular" value="{{ formdata.colaRegular }}" />
+	<input type="hidden" name="colaLight" value="{{ formdata.colaLight }}" />
+	<input type="hidden" name="fanta" value="{{ formdata.fanta }}" />
+	<input type="hidden" name="sprite" value="{{ formdata.sprite }}" />
+	<input type="hidden" name="spaRood" value="{{ formdata.spaRood }}" />
+	<input type="hidden" name="appelsap" value="{{ formdata.appelsap }}" />
+	<input type="hidden" name="sinaasappelsap" value="{{ formdata.sinaasappelsap }}" />
+	<input type="hidden" name="cassis" value="{{ formdata.cassis }}" />
+	<input type="hidden" name="iceTeaSparkling" value="{{ formdata.iceTeaSparkling }}" />
+	<input type="hidden" name="iceTeaNoBubbles" value="{{ formdata.iceTeaNoBubbles }}" />
+	<input type="hidden" name="rioFiestaMix" value="{{ formdata.rioFiestaMix }}" />
+	<input type="hidden" name="AHCocktailNoten" value="{{ formdata.AHCocktailNoten }}" />
+	<input type="hidden" name="stapelglazen" value="{{ formdata.stapelglazen }}" />
+	<input type="hidden" name="wijnglazen" value="{{ formdata.wijnglazen }}" />
+	<input type="hidden" name="statafels" value="{{ formdata.statafels }}" />
+	<input type="hidden" name="opmerkingen" value="{{ formdata.opmerkingen }}" />
+	<input type="submit" name="submit" value="Reservering bevestigen" />
+</form>
+
+
+{% endblock %}

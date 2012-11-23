@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Voorraadcie.nl
+{% endblock %}
+
+{% block head %}
+{{ block.super }}
+<style type="text/css">
+form ul {
+	list-style: none;
+	margin-left: 0;
+	padding-left: 1em;
+}
+
+form ul > li {
+	border-left: solid 1px #aaa;
+	padding-left: 1em;
+	vertical-align: top;
+}
+
+form ul > li label {
+	padding: 4px 0;
+}
+
+form ul > li .error {
+	display: inline-block;
+	color: #f82020;
+}
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<h2>De email met de reservering is verstuurd</h2>
+<h3><a href="index.php">Terug</a></h3>
+
+{% endblock %}

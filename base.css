@@ -1,23 +1,25 @@
 body {
 	background-color: #f0fff0; /* #28067C;  /* #ff55ff; */ /* #c0ff33; */
 }
+
 #content {
 	background-color: #004301;
-	text-align: center;
 	width: 900px;
 	margin: 0 auto;
-	height: 100%;
 	color: #f0f0f0;
 	padding: 1em 2em;
 	border-radius: 4px;
 
 }
+
 h1 {
 	font-family: 'Antic Slab', serif;
 	font-size: 50pt;
+	text-align: center;
 	padding-left: 0.5em;
 	font-weight: bold;
 }
+
 h2 {
 	font-family: 'Antic Slab', serif;
 	font-size: 30pt;
@@ -26,3 +28,31 @@ h2 {
 	font-weight: bold;
 	text-align: left;
 }
+
+label {
+	min-width: 16em;
+	display: inline-block;
+	font-style: serif;
+}
+
+input {
+	font-size: large;
+}
+	padding: 1px;
+
+input[type=number] {
+	width: 5em;
+	text-align: right;
+}
+
+a:link, a:visited, .link {
+	color: #f0f0f0;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+a:hover, .link:hover {
+	color: #a0f0a0;
+	text-decoration: none;
+}
+
