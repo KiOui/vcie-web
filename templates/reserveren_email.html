@@ -1,6 +1,9 @@
-{{ formdata.naam }} van {{ formdata.vereniging }} wil graag de volgende bestelling doen:
+{{ formdata.naam }} van {{ formdata.vereniging }} wil graag de volgende bestelling doen voor op {{ formdata.datum }}:
 
 {% if formdata.kantine %}kantine: {{ formdata.kantine }}
+{% endif %}
+
+{% if formdata.datum %}datum: {{ formdata.datum }}
 {% endif %}
 
 {% if formdata.gelegenheid %}gelegenheid: {{ formdata.gelegenheid }}

@@ -11,8 +11,11 @@ if (empty($_POST)) {
 } else {
 	$validator = new FormValidator();
 	$validator->addRule('csrfmiddlewaretoken', $ruleCSRFToken);
-	$validator->addRule(array('naam', 'email', 'gelegenheid', 'vereniging'), $ruleRequired);
+	$validator->addRule(array('naam', 'email', 'datum', 'gelegenheid', 'vereniging'), $ruleRequired);
 	$validator->addRule('email', $ruleEmail);
+	$validator->addRule('datum', new RegexRule(
+'/^\s*(ma(andag)?|di(nsdag)?|wo(ensdag)?|do(nderdag)?|vr(ijdag)?|za(terdag)?|zo(ndag)?)?,?\s*\d\d?(\s?-\s?\d\d?(\s?-\s?\d{4}|\s?-\s?\d{2})?|\s+(jan(uari)?|feb(ruari)?|maart|apr(il)?|mei|juni?|juli?|aug(ustus)?|sep(t(ember)?)?|okt(ober)?|nov(ember)?|dec(ember)?|mrt)(\s+\d{4})?)\s*$/i',
+	"geen fatsoenlijk geformatte datum&mdash;probeer iets zoals &ldquo;donderdag 19 september 2012&rdquo;"));
 	$validator->addRule('kantine', new RegexRule('/^$|^(zuid|noord)kantine$/i', "geen geldige kantine :P"));
 	$validator->addRules(array(
 		'krattenBier', 'rodeWijn', 'witteWijnZoet', 'witteWijnDroog',
@@ -33,7 +36,7 @@ if (empty($_POST)) {
 					array('formdata' => $form, 'errors' => $errors, 'validator' => $validator)),
 				70),
 				'headers' => 'From: no-reply@vooraadcie.nl' . "\r\n" .
-                             'Reply-To: daan@voorraadcie.nl' . "\r\n" .
+                             'Reply-To: ' . $form['email'] . "\r\n" .
                              'X-Mailer: PHP/' . phpversion()
 			);
 			file_put_contents(

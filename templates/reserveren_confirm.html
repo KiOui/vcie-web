@@ -36,7 +36,7 @@ form ul > li .error {
 
 <h2>Reservering bevestigen</h2>
 
-<p>De volgende email zal gestuurd worden</p>
+<p>De volgende email zal gestuurd worden, al er iets niet klopt kun je de terugknop van je browser spammen.</p>
 
 <pre>
 {% include 'reserveren_email.html' %}
@@ -48,6 +48,7 @@ form ul > li .error {
 	<input type="hidden" name="confirm" />
 	<input type="hidden" name="naam" value="{{ formdata.naam }}" />
 	<input type="hidden" name="email" value="{{ formdata.email }}" />
+	<input type="hidden" name="datum" value="{{ formdata.datum }}">
 	<input type="hidden" name="gelegenheid" value="{{ formdata.gelegenheid }}" />
 	<input type="hidden" name="vereniging" value="{{ formdata.vereniging }}" />
 	<input type="hidden" name="kantine" value="{{ formdata.kantine }}" />
