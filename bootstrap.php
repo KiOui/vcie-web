@@ -1,9 +1,9 @@
 <?php
 
-define('MODULES_DIR', 'modules/');
+define('LIB_DIR', 'lib/');
 
 // Register generation begintime
-require(MODULES_DIR . 'tic.php');
+require(LIB_DIR . 'tic.php');
 
 // Set decent error reporting
 error_reporting(E_ALL);
@@ -18,10 +18,10 @@ $H2O_OPTIONS =  array(
 );
 
 // Include h2o template engine
-require_once(MODULES_DIR . 'h2o.php');
+require_once(LIB_DIR . 'h2o.php');
 
 // Include form-validation
-require_once(MODULES_DIR . 'formvalidation.php');
+require_once(LIB_DIR . 'formvalidation.php');
 
 // Defineer ene leuke secret key
 define('SECRET_KEY', 'hfFmh3L8XOVq0gfAcDf3K8mFABdTjlrpGYrTB5zKQPJ14kOxrvZK353falHE8L00E');
