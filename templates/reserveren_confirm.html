@@ -43,8 +43,7 @@ form ul > li .error {
 </pre>
 
 <form action="reserveren.php" method="post">
-	{% csrf_token %}
-	
+	{{ csrf_token_tag|raw }}
 	<input type="hidden" name="confirm" />
 	<input type="hidden" name="naam" value="{{ formdata.naam }}" />
 	<input type="hidden" name="email" value="{{ formdata.email }}" />

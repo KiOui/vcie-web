@@ -7,7 +7,7 @@ if (empty($_POST)) {
 	$validator = null;
 	$form = array();
 	$errors = array();
-	$h2o = new H2o('reserveren_form.html', $H2O_OPTIONS);
+	$template = $twig->loadTemplate('reserveren_form.html');
 } else {
 	$validator = new FormValidator();
 	$validator->addRule('csrfmiddlewaretoken', $ruleCSRFToken);
@@ -28,11 +28,11 @@ if (empty($_POST)) {
 	$errors = $validator->getErrors();
 	if (empty($errors)) {
 		if (isset($form['confirm'])) {
-			$h2o = new H2o('reserveren_email.html', $H2O_OPTIONS);
+			$template = $twig->loadTemplate('reserveren_email.html');
 			$mail = array(
 				'to' => $reservering_emailadres,
 				'subject' => 'Bestelling "' . $form['gelegenheid'] . '" van ' . $form['naam'],
-				'message' => wordwrap($h2o->render(
+				'message' => wordwrap($template->render(
 					array('formdata' => $form, 'errors' => $errors, 'validator' => $validator)),
 				70),
 				'headers' => 'From: no-reply@vooraadcie.nl' . "\r\n" .
@@ -44,18 +44,18 @@ if (empty($_POST)) {
 				json_encode($mail)
 			);
 			mail($mail['to'], $mail['subject'], $mail['message'], $mail['headers']);
-			$h2o = new H2o('reserveren_done.html', $H2O_OPTIONS);
+			$template = $twig->loadTemplate('reserveren_done.html');
 		} else {
-			$h2o = new H2o('reserveren_confirm.html', $H2O_OPTIONS);
+			$template = $twig->loadTemplate('reserveren_confirm.html');
 		}
 	} else {
-		$h2o = new H2o('reserveren_form.html', $H2O_OPTIONS);
+		$template = $twig->loadTemplate('reserveren_form.html');
 	}
 }
 
 
-echo $h2o->render(array('formdata' => $form, 'errors' => $errors, 'validator' => $validator));
+echo $template->render(array('formdata' => $form, 'errors' => $errors, 'validator' => $validator));
 
 end:
 
-require(MODULES_DIR . 'toc.php');
+require(LIB_DIR . 'toc.php');

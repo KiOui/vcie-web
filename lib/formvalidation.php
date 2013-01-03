@@ -49,10 +49,10 @@ class MinRule extends Rule {
 
 class CSRFTokenRule extends Rule {
 	public function check($csrf_token) {
-		if ( ! array_key_exists('csrftoken', $_COOKIE)) {
+		if ( ! array_key_exists('csrftoken', $_SESSION)) {
 			trigger_error("No CSRF token cookie provided", E_USER_ERROR);
 		}
-		if ($csrf_token !== $_COOKIE['csrftoken']) {
+		if ($csrf_token !== $_SESSION['csrftoken']) {
 			trigger_error("CSRF token not valid", E_USER_ERROR);
 		}
 		return true;

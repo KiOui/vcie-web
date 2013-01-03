@@ -2,5 +2,7 @@
 
 require('bootstrap.php');
 
-$h2o = new H2o('index.html', $H2O_OPTIONS);
-echo $h2o->render();
+$template = $twig->loadTemplate('index.html');
+echo $template->render(array());
+
+include(LIB_DIR . 'toc.php');
