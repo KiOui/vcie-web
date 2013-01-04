@@ -13,7 +13,8 @@ ini_set('display_errors', 'On');
 require_once(LIB_DIR . 'Twig/Autoloader.php');
 Twig_Autoloader::register();
 $twig = new Twig_Environment(new Twig_Loader_Filesystem('templates/'), array(
-    'cache' => '/tmp/vcieCache/',
+	'auto_reload' => true,
+	'cache' => '/tmp/vcieCache/',
 ));
 
 // Include form-validation
