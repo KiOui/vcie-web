@@ -97,24 +97,34 @@ form ul > li .error {
 		<input id="krattenBier" type="number" name="krattenBier" value="{{ formdata.krattenBier }}" placeholder="kratten bier" min="0" />
 		<div class="error">{% if errors.krattenBier %}{{ errors.krattenBier|join|raw }}{% endif %}</div>
 	</li>
-	<li>
+	<h4>
+		Wijn
+		<small>(shortcut:
+			<span class="link" onclick="$('.wijn input').prop('value', function (a, b) { return parseInt(b === '' ? 0 : b)+1; });">+1</span>
+			<span class="link" onclick="$('.wijn input').prop('value', function (a, b) { return Math.max(parseInt(b === '' ? 0 : b)-1, 0); });">-1</span>
+		)</small>
+	</h4>
+	<li class="wijn">
 		<label for="rodeWijn">Rode wijn</label>
 		<input id="rodeWijn" type="number" name="rodeWijn" value="{{ formdata.rodeWijn }}" placeholder="rode wijn" min="0" />
 		<div class="error">{% if errors.rodeWijn %}{{ errors.rodeWijn|join|raw }}{% endif %}</div>
 	</li>
-	<li>
+	<li class="wijn">
 		<label for="witteWijnZoet">Witte wijn (zoet)</label>
 		<input id="witteWijnZoet" type="number" name="witteWijnZoet" value="{{ formdata.witteWijnZoet }}" placeholder="witte wijn (zoet)" min="0" />
 		<div class="error">{% if errors.witteWijnZoet %}{{ errors.witteWijnZoet|join|raw }}{% endif %}</div>
 	</li>
-	<li>
+	<li class="wijn">
 		<label for="witteWijnDroog">Witte wijn (droog)</label>
 		<input id="witteWijnDroog" type="number" name="witteWijnDroog" value="{{ formdata.witteWijnDroog }}" placeholder="witte wijn (droog)" min="0" />
 		<div class="error">{% if errors.witteWijnDroog %}{{ errors.witteWijnDroog|join|raw }}{% endif %}</div>
 	</li>
 	<h4>
 		Fris
-		<small class="link" onclick="$('.fris input').prop('value', function (a, b) { return 2; });">(doe maar alles 2)</small>
+		<small>(shortcut:
+			<span class="link" onclick="$('.fris input').prop('value', function (a, b) { return parseInt(b === '' ? 0 : b)+1; });">+1</span>
+			<span class="link" onclick="$('.fris input').prop('value', function (a, b) { return Math.max(parseInt(b === '' ? 0 : b)-1, 0); });">-1</span>
+		)</small>
 	</h4>
 	<li class="fris">
 		<label for="colaRegular">Cola regular</label>
