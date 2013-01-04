@@ -87,6 +87,11 @@ form ul > li .error {
 		</select>
 		<div class="error">{% if errors.kantine %}{{ errors.kantine|join|raw }}{% endif %}</div>
 	</li>
+	<li>
+		<label for="opmerkingen">Opmerkingen</label>
+		<textarea id="opmerkingen" name="opmerkingen" value="{{ formdata.opmerkingen }}" placeholder="opmerkingen" cols="40"></textarea>
+		<div class="error">{% if errors.opmerkingen %}{{ errors.opmerkingen|join|raw }}{% endif %}</div>
+	</li>
 </ul>
 
 <h3>Drank en eten (vul getallen in)</h3>
@@ -222,17 +227,9 @@ form ul > li .error {
 		<input id="brandpasta" type="checkbox" name="brandpasta"{% if form.brandpasta %} checked{% endif %} />
 		<div class="error">{% if errors.brandpasta %}{{ errors.brandpasta|join|raw }}{% endif %}</div>
 	</li>
-	<li>
-		<label for="opmerkingen">Opmerkingen</label>
-		<textarea id="opmerkingen" name="opmerkingen" value="{{ formdata.opmerkingen }}" placeholder="opmerkingen" cols="40"></textarea>
-		<div class="error">{% if errors.opmerkingen %}{{ errors.opmerkingen|join|raw }}{% endif %}</div>
-	</li>
-	
-	
 </ul>
 
 <input type="submit" name="submit" value="Versturen" />
 </form>
-
 
 {% endblock %}
