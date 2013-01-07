@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block title %}
-{{ block.parent }} - reservering bevestigen
+{{ parent() }} - reservering bevestigen
 {% endblock %}
 
 {% block head %}
-{{ block.parent }}
+{{ parent() }}
 <style type="text/css">
 form ul {
 	list-style: none;
