@@ -37,4 +37,4 @@ $twig->addGlobal('csrf_token', $_SESSION['csrftoken']);
 $twig->addGlobal('csrf_token_tag', '<input type="hidden" name="csrfmiddlewaretoken" value="' . $_SESSION['csrftoken'] . '" />');
 
 // Welke email-adressen zouden emails moeten ontvangen?
-$reservering_emailadres = "Kode Kolonel <daan@voorraadcie.nl>";
+$reservering_emailadres = "olympusreservering@science.ru.nl";
