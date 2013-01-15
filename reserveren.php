@@ -11,11 +11,12 @@ if (empty($_POST)) {
 } else {
 	$validator = new FormValidator();
 	$validator->addRule('csrfmiddlewaretoken', $ruleCSRFToken);
-	$validator->addRule(array('naam', 'email', 'datum', 'gelegenheid', 'vereniging'), $ruleRequired);
+	$validator->addRule(array('naam', 'email', 'datum', 'gelegenheid', 'vereniging', 'beginTijd', 'eindTijd'), $ruleRequired);
 	$validator->addRule('email', $ruleEmail);
 	$validator->addRule('datum', new RegexRule(
-'/^\s*(ma(andag)?|di(nsdag)?|wo(ensdag)?|do(nderdag)?|vr(ijdag)?|za(terdag)?|zo(ndag)?)?,?\s*\d\d?(\s?-\s?\d\d?(\s?-\s?\d{4}|\s?-\s?\d{2})?|\s+(jan(uari)?|feb(ruari)?|maart|apr(il)?|mei|juni?|juli?|aug(ustus)?|sep(t(ember)?)?|okt(ober)?|nov(ember)?|dec(ember)?|mrt)(\s+\d{4})?)\s*$/i',
+'/^\s*(ma(andag)?|di(nsdag)?|wo(ensdag)?|do(nderdag)?|vr(ij(dag)?)?|za(terdag)?|zo(ndag)?)?,?\s*\d\d?(\s?-\s?\d\d?(\s?-\s?\d{4}|\s?-\s?\d{2})?|\s+(jan(uari)?|feb(ruari)?|m(aa)?rt|apr(il)?|mei|juni?|juli?|aug(ustus)?|sep(t(ember)?)?|okt(ober)?|nov(ember)?|dec(ember)?)(\s+\d{4})?)\s*$/i',
 	"geen fatsoenlijk geformatte datum&mdash;probeer iets zoals &ldquo;donderdag 19 september 2012&rdquo;"));
+	$validator->addRule(array('beginTijd', 'eindTijd'), new RegexRule('/^$|^\d\d?[:.]\d?\d$/i', 'sorry, ik snap deze tijd niet, probeer iets als &lsquo;13:37&rsquo;'));
 	$validator->addRule('kantine', new RegexRule('/^$|^(zuid|noord)kantine$/i', "geen geldige kantine :P"));
 	$validator->addRules(array(
 		'krattenBier', 'rodeWijn', 'witteWijnZoet', 'witteWijnDroog',

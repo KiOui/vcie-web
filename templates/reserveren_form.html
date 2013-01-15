@@ -27,6 +27,10 @@ form ul > li .error {
 	display: inline-block;
 	color: #f82020;
 }
+#beginTijd, #eindTijd {
+	width: 3em;
+	text-align: right;
+}
 
 
 </style>
@@ -57,6 +61,20 @@ form ul > li .error {
 		<label for="datum">Datum <small>(als: &ldquo;donderdag 19 september&rdquo;)</small></label>
 		<input id="datum" type="date" name="datum" value="{{ formdata.datum }}" placeholder="DD-MM-YYYY" required />
 		<div class="error">{% if errors.datum %}{{ errors.datum|join|raw }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="beginTijd">Begin&ndash;/eindtijd</label>
+		van
+		<input id="beginTijd" name="beginTijd" type="text" maxlength="5" value="{{ formdata.beginTijd|default('16:00') }}" required />
+		tot
+		<input id="eindTijd" name="eindTijd" type="text" maxlength="5" value="{{ formdata.eindTijd|default('21:00') }}" required />
+		{% spaceless %}
+		<div class="error">
+			{% if errors.beginTijd %}{{ errors.beginTijd|join|raw }}
+			{% elseif errors.eindTijd %}{{ errors.eindTijd|join|raw }}
+			{% endif %}
+		</div>
+		{% endspaceless %}
 	</li>
 	<li>
 		<label for="gelegenheid">Gelegenheid</label>
