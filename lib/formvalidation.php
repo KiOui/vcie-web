@@ -47,6 +47,19 @@ class MinRule extends Rule {
 	}
 }
 
+class MaxRule extends Rule {
+	protected $maxValue;
+
+	public function __construct($maxValue, $errorMessage='onjuist') {
+		$this->maxValue = $maxValue;
+		$this->_errorMessage = $errorMessage;
+	}
+
+	public function check($a) {
+		return (boolean) strlen($a) == 0 || $a <= $this->maxValue;
+	}
+}
+
 class CSRFTokenRule extends Rule {
 	public function check($csrf_token) {
 		if ( ! array_key_exists('csrftoken', $_SESSION)) {

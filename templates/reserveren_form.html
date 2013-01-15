@@ -28,8 +28,17 @@ form ul > li .error {
 	color: #f82020;
 }
 #beginTijd, #eindTijd {
+	width: 3.2em;
+}
+
+#beginTijd, #eindTijd, #dag, #maand, #jaar {
+	text-align: center;
+}
+#dag, #maand {
+	width: 1.5em;
+}
+#jaar {
 	width: 3em;
-	text-align: right;
 }
 
 
@@ -40,7 +49,6 @@ form ul > li .error {
 
 <form action="reserveren.php" method="post">
 {{ csrf_token_tag|raw }}
-
 
 <h2>Reserveren</h2>
 
@@ -58,9 +66,15 @@ form ul > li .error {
 		<div class="error">{% if errors.email %}{{ errors.email|join|raw }}{% endif %}</div>
 	</li>
 	<li>
-		<label for="datum">Datum <small>(als: &ldquo;donderdag 19 september&rdquo;)</small></label>
-		<input id="datum" type="date" name="datum" value="{{ formdata.datum }}" placeholder="DD-MM-YYYY" required />
-		<div class="error">{% if errors.datum %}{{ errors.datum|join|raw }}{% endif %}</div>
+		<label for="dag">Datum <small>(dag &ndash; maand &ndash; jaar)</small></label>
+		<input id="dag" type="text" name="dag" value="{{ formdata.dag }}" /> &ndash;
+		<input id="maand" type="text" name="maand" value="{{ formdata.maand|default("+7 days"|date("m")) }}" /> &ndash;
+		<input id="jaar" type="text" name="jaar" value="{{ formdata.jaar|default("+7 days"|date("Y")) }}" />
+		<div class="error">
+		{% if errors.dag %}{{ errors.dag|join|raw }}{% endif %}
+		{% if errors.maand %}{% if errors.dag %}, {% endif %}{{ errors.maand|join|raw }}{% endif %}
+		{% if errors.jaar %}{% if errors.maand %}, {% endif %}{{ errors.jaar|join|raw }}{% endif %}
+		</div>
 	</li>
 	<li>
 		<label for="beginTijd">Begin&ndash;/eindtijd</label>

@@ -11,11 +11,11 @@ if (empty($_POST)) {
 } else {
 	$validator = new FormValidator();
 	$validator->addRule('csrfmiddlewaretoken', $ruleCSRFToken);
-	$validator->addRule(array('naam', 'email', 'datum', 'gelegenheid', 'vereniging', 'beginTijd', 'eindTijd'), $ruleRequired);
+	$validator->addRule(array('naam', 'email', 'dag', 'maand', 'jaar', 'gelegenheid', 'vereniging', 'beginTijd', 'eindTijd'), $ruleRequired);
 	$validator->addRule('email', $ruleEmail);
-	$validator->addRule('datum', new RegexRule(
-'/^\s*(ma(andag)?|di(nsdag)?|wo(ensdag)?|do(nderdag)?|vr(ij(dag)?)?|za(terdag)?|zo(ndag)?)?,?\s*\d\d?(\s?-\s?\d\d?(\s?-\s?\d{4}|\s?-\s?\d{2})?|\s+(jan(uari)?|feb(ruari)?|m(aa)?rt|apr(il)?|mei|juni?|juli?|aug(ustus)?|sep(t(ember)?)?|okt(ober)?|nov(ember)?|dec(ember)?)(\s+\d{4})?)\s*$/i',
-	"geen fatsoenlijk geformatte datum&mdash;probeer iets zoals &ldquo;donderdag 19 september 2012&rdquo;"));
+	$validator->addRule(array('dag', 'maand'), new MinRule(1, 'Een dag of maand onder de 1 maakt helemaal geen sense.'));
+	$validator->addRule('dag', new MaxRule(31, 'Dag groter dan 31?'));
+	$validator->addRule('maand', new MaxRule(12, 'Maand groter dan 12?'));
 	$validator->addRule(array('beginTijd', 'eindTijd'), new RegexRule('/^$|^\d\d?[:.]\d?\d$/i', 'sorry, ik snap deze tijd niet, probeer iets als &lsquo;13:37&rsquo;'));
 	$validator->addRule('kantine', new RegexRule('/^$|^(zuid|noord)kantine$/i', "geen geldige kantine :P"));
 	$validator->addRules(array(
@@ -28,6 +28,7 @@ if (empty($_POST)) {
 	$form = $_POST;
 	$errors = $validator->getErrors();
 	if (empty($errors)) {
+		$form['datetime'] = mktime(0, 0, 0, $form['maand'], $form['dag'], $form['jaar']);
 		if (isset($form['confirm'])) {
 			$template = $twig->loadTemplate('reserveren_email.html');
 			$mail = array(
