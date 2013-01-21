@@ -1,6 +1,7 @@
 <?php
 
 require('bootstrap.php');
+require_once(LIB_DIR . 'phpmailer.php');
 
 
 if (empty($_POST)) {
@@ -29,23 +30,30 @@ if (empty($_POST)) {
 	$errors = $validator->getErrors();
 	if (empty($errors)) {
 		$form['datetime'] = mktime(0, 0, 0, $form['maand'], $form['dag'], $form['jaar']);
+		$beginTijd = explode(':', $form['beginTijd']);
+		$eindTijd = explode(':', $form['eindTijd']);
+		$form['beginTijd_time'] = mktime($beginTijd[0], $beginTijd[1]);
+		$form['eindTijd_time'] = mktime($eindTijd[0], $eindTijd[1]);
 		if (isset($form['confirm'])) {
-			$template = $twig->loadTemplate('reserveren_email.html');
-			$mail = array(
-				'to' => $reservering_emailadres,
-				'subject' => 'Bestelling "' . $form['gelegenheid'] . '" van ' . $form['naam'],
-				'message' => wordwrap($template->render(
-					array('formdata' => $form, 'errors' => $errors, 'validator' => $validator)),
-				70),
-				'headers' => 'From: no-reply@vooraadcie.nl' . "\r\n" .
-                             'Reply-To: ' . $form['email'] . "\r\n" .
-                             'X-Mailer: PHP/' . phpversion()
-			);
+			// Stuur die email....
+			try {
+				$template = $twig->loadTemplate('reserveren_email.html');
+				$body = $template->render(array('formdata' => $form, 'errors' => $errors, 'validator' => $validator));
+				$mail = new PHPMailer(true);
+				$mail->SetWordWrap();
+				$mail->AddAddress($reservering_emailadres);
+				$mail->SetFrom('no-reply@voorraadcie.nl', 'VoorraadSys');
+				$mail->AddReplyTo($form['email'], $form['naam']);
+				$mail->Body = $body;
+				$mail->Subject = 'Bestelling "' . $form['gelegenheid'] . '" van ' . $form['naam'];
+				$mail->Send();
+			} catch (phpmailerException $e) {
+				echo $e->errorMessage();
+			}
 			file_put_contents(
 				'reserveringen/' . date('ymd') . ' ' . $form['naam'] . ' - ' . $form['gelegenheid'] . '.txt',
 				json_encode($mail)
 			);
-			mail($mail['to'], $mail['subject'], $mail['message'], $mail['headers']);
 			$template = $twig->loadTemplate('reserveren_done.html');
 		} else {
 			$template = $twig->loadTemplate('reserveren_confirm.html');
