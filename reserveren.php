@@ -42,7 +42,11 @@ if (empty($_POST)) {
 				$mail = new PHPMailer(true);
 				$mail->SetWordWrap();
 				$mail->AddAddress($reservering_emailadres);
+				if (isset($form['ccmij']) && $form['ccmij']) {
+					$mail->AddCC($form['email'], $form['naam']);
+				}
 				$mail->SetFrom('no-reply@voorraadcie.nl', 'VoorraadSys');
+				$mail->ClearReplyTos(); // Bij SetFrom wordt no-reply toegevoegd als Reply-To
 				$mail->AddReplyTo($form['email'], $form['naam']);
 				$mail->Body = $body;
 				$mail->Subject = 'Bestelling "' . $form['gelegenheid'] . '" van ' . $form['naam'];

@@ -76,6 +76,11 @@ form ul > li .error {
 	<input type="hidden" name="wijnglazen" value="{{ formdata.wijnglazen }}" />
 	<input type="hidden" name="statafels" value="{{ formdata.statafels }}" />
 	<input type="submit" name="submit" value="Reservering bevestigen" />
+	<em>
+		<input type="checkbox" id="ccmij" name="ccmij" checked />
+		<label for="ccmij">Stuur mij een kopie</label>
+	</em>
+
 </form>
 
 {% endblock %}
