@@ -1,6 +1,5 @@
-{{ formdata.naam }} van {{ formdata.vereniging }} wil graag de volgende bestelling doen:
+{% filter replace({'\n\n\n': '\n\n'})|trim %}
 
-Datum/tijd: {{ formdata.datetime|date('d-m-Y') }} van {{ formdata.beginTijd }} tot {{ formdata.eindTijd }}
 {% if formdata.kantine %}kantine: {{ formdata.kantine }}
 {% endif %}
 
@@ -56,3 +55,5 @@ Datum/tijd: {{ formdata.datetime|date('d-m-Y') }} van {{ formdata.beginTijd }} t
 {% endif %}
 {% if formdata.brandpasta %}brandpasta
 {% endif %}
+
+{% endfilter %}

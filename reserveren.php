@@ -29,17 +29,19 @@ if (empty($_POST)) {
 	$form = $_POST;
 	$errors = $validator->getErrors();
 	if (empty($errors)) {
+		$form['uid'] = md5(serialize($_POST));
 		$form['datetime'] = mktime(0, 0, 0, $form['maand'], $form['dag'], $form['jaar']);
 		$beginTijd = explode(':', $form['beginTijd']);
 		$eindTijd = explode(':', $form['eindTijd']);
-		$form['beginTijd_time'] = mktime($beginTijd[0], $beginTijd[1]);
-		$form['eindTijd_time'] = mktime($eindTijd[0], $eindTijd[1]);
+		$form['beginTijd_datetime'] = mktime($beginTijd[0], $beginTijd[1], 0, $form['maand'], $form['dag'], $form['jaar']);
+		$form['eindTijd_datetime'] = mktime($eindTijd[0], $eindTijd[1], 0, $form['maand'], $form['dag'], $form['jaar']);
 		if (isset($form['confirm'])) {
 			// Stuur die email....
 			try {
-				$template = $twig->loadTemplate('reserveren_email.html');
+				$template = $twig->loadTemplate('reserveren_email.txt');
 				$body = $template->render(array('formdata' => $form, 'errors' => $errors, 'validator' => $validator));
 				$mail = new PHPMailer(true);
+				//$mail->IsSendmail();
 				$mail->SetWordWrap();
 				$mail->AddAddress($reservering_emailadres);
 				if (isset($form['ccmij']) && $form['ccmij']) {
@@ -50,6 +52,12 @@ if (empty($_POST)) {
 				$mail->AddReplyTo($form['email'], $form['naam']);
 				$mail->Body = $body;
 				$mail->Subject = 'Bestelling "' . $form['gelegenheid'] . '" van ' . $form['naam'];
+				$isc_template = $twig->loadTemplate('reserveren_isc.isc');
+				$mail->AddStringAttachment(
+					$mail->FixEOL($isc_template->render(array('formdata' => $form))),
+					$form['uid'] . '.isc',
+					'8bit',
+					'text/calendar');
 				$mail->Send();
 			} catch (phpmailerException $e) {
 				echo $e->errorMessage();

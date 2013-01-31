@@ -1,0 +1,5 @@
+{{ formdata.naam }} van {{ formdata.vereniging }} wil graag de volgende bestelling doen:
+
+Datum/tijd: {{ formdata.datetime|date('d-m-Y') }} van {{ formdata.beginTijd }} tot {{ formdata.eindTijd }}
+
+{% include 'reserveren_lijst.txt' %}
