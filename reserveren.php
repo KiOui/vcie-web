@@ -20,7 +20,7 @@ if (empty($_POST)) {
 	$validator->addRule(array('beginTijd', 'eindTijd'), new RegexRule('/^$|^\d\d?[:.]\d?\d$/i', 'sorry, ik snap deze tijd niet, probeer iets als &lsquo;13:37&rsquo;'));
 	$validator->addRule('kantine', new RegexRule('/^$|^(zuid|noord)kantine$/i', "geen geldige kantine :P"));
 	$validator->addRules(array(
-		'krattenBier', 'rodeWijn', 'witteWijnZoet', 'witteWijnDroog',
+		'krattenBier', 'rodeWijn', 'witteWijnZoet', 'witteWijnDroog', 'rose',
 		'colaRegular', 'colaLight', 'fanta', 'sprite', 'spaRood',
 		'appelsap', 'sinaasappelsap', 'cassis', 'iceTeaSparkling',
 		'iceTeaNoBubbles', 'rioFiestaMix', 'AHCocktailNoten',

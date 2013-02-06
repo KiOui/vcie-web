@@ -18,6 +18,8 @@
 {% endif %}
 {% if formdata.witteWijnDroog %}{{ formdata.witteWijnDroog }} flessen droge witte wijn
 {% endif %}
+{% if formdata.rose %}{{ formdata.rose }} flessen rosé
+{% endif %}
 {% if formdata.colaRegular %}{{ formdata.colaRegular }} flessen cola
 {% endif %}
 {% if formdata.colaLight %}{{ formdata.colaLight }} flessen cola light

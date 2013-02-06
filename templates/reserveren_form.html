@@ -156,6 +156,11 @@ form ul > li .error {
 		<input id="witteWijnDroog" type="number" name="witteWijnDroog" value="{{ formdata.witteWijnDroog }}" placeholder="witte wijn (droog)" min="0" />
 		<div class="error">{% if errors.witteWijnDroog %}{{ errors.witteWijnDroog|join|raw }}{% endif %}</div>
 	</li>
+	<li class="wijn">
+		<label for="rose">Ros&eacute;</label>
+		<input id="rose" type="number" name="rose" value="{{ formdata.rose }}" placeholder="ros&eacute;" min="0" />
+		<div class="error">{% if errors.rose %}{{ errors.rose|join|raw }}{% endif %}</div>
+	</li>
 	<h4>
 		Fris
 		<small>(shortcut:
