@@ -121,7 +121,7 @@ form ul > li .error {
 	</li>
 	<li>
 		<label for="opmerkingen">Opmerkingen</label>
-		<textarea id="opmerkingen" name="opmerkingen" value="{{ formdata.opmerkingen }}" placeholder="opmerkingen" cols="40"></textarea>
+		<textarea id="opmerkingen" name="opmerkingen" placeholder="opmerkingen" cols="40">{{ formdata.opmerkingen }}</textarea>
 		<div class="error">{% if errors.opmerkingen %}{{ errors.opmerkingen|join|raw }}{% endif %}</div>
 	</li>
 </ul>
