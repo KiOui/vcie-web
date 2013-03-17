@@ -251,8 +251,18 @@ form ul > li .error {
 	</li>
 	<li>
 		<label for="statafels">Statafels</label>
-		<input id="statafels" type="number" name="statafels" value="{{ formdata.statafels }}" min="0" />
+		<input id="statafels" type="number" name="statafels" value="{{ formdata.statafels }}" placeholder="aantal" min="0" />
 		<div class="error">{% if errors.statafels %}{{ errors.statafels|join|raw }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="kookplaten">Kookplaten</label>
+		<input id="kookplaten" type="checkbox" name="kookplaten"{% if form.kookplaten %} checked{% endif %} />
+		<div class="error">{% if errors.kookplaten %}{{ errors.kookplaten|join|raw }}{% endif %}</div>
+	</li>
+	<li>
+		<label for="pannen">Pannen</label>
+		<input id="pannen" type="checkbox" name="pannen"{% if form.pannen %} checked{% endif %} />
+		<div class="error">{% if errors.pannen %}{{ errors.pannen|join|raw }}{% endif %}</div>
 	</li>
 	<li>
 		<label for="warmhoudbakken">Warmhoudbakken</label>
