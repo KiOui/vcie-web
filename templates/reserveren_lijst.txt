@@ -55,7 +55,7 @@
 {% endif %}
 {% if formdata.kookplaten %}kookplaten
 {% endif %}
-{% if formdata.statafels %}pannen
+{% if formdata.pannen %}pannen
 {% endif %}
 {% if formdata.warmhoudbakken %}warmhoudbakken
 {% endif %}
