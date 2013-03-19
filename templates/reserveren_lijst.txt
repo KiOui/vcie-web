@@ -53,6 +53,10 @@
 {% endif %}
 {% if formdata.statafels %}{{ formdata.statafels }} statafels
 {% endif %}
+{% if formdata.kookplaten %}kookplaten
+{% endif %}
+{% if formdata.pannen %}pannen
+{% endif %}
 {% if formdata.warmhoudbakken %}warmhoudbakken
 {% endif %}
 {% if formdata.brandpasta %}brandpasta
