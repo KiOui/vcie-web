@@ -246,7 +246,7 @@ form ul > li .error {
 <ul>
 	<li>
 		<label for="muziekkastsleutel">Muziekkastsleutel</label>
-		<input id="muziekkastsleutel" type="checkbox" name="muziekkastsleutel"{% if form.muziekkastsleutel %} checked{% endif %} />
+		<input id="muziekkastsleutel" type="checkbox" name="muziekkastsleutel"{% if formdata.muziekkastsleutel %} checked{% endif %} />
 		<div class="error">{% if errors.muziekkastsleutel %}{{ errors.muziekkastsleutel|join|raw }}{% endif %}</div>
 	</li>
 	<li>
@@ -256,22 +256,22 @@ form ul > li .error {
 	</li>
 	<li>
 		<label for="kookplaten">Kookplaten</label>
-		<input id="kookplaten" type="checkbox" name="kookplaten"{% if form.kookplaten %} checked{% endif %} />
+		<input id="kookplaten" type="checkbox" name="kookplaten"{% if formdata.kookplaten %} checked{% endif %} />
 		<div class="error">{% if errors.kookplaten %}{{ errors.kookplaten|join|raw }}{% endif %}</div>
 	</li>
 	<li>
 		<label for="pannen">Pannen</label>
-		<input id="pannen" type="checkbox" name="pannen"{% if form.pannen %} checked{% endif %} />
+		<input id="pannen" type="checkbox" name="pannen"{% if formdata.pannen %} checked{% endif %} />
 		<div class="error">{% if errors.pannen %}{{ errors.pannen|join|raw }}{% endif %}</div>
 	</li>
 	<li>
 		<label for="warmhoudbakken">Warmhoudbakken</label>
-		<input id="warmhoudbakken" type="checkbox" name="warmhoudbakken"{% if form.warmhoudbakken %} checked{% endif %} />
+		<input id="warmhoudbakken" type="checkbox" name="warmhoudbakken"{% if formdata.warmhoudbakken %} checked{% endif %} />
 		<div class="error">{% if errors.warmhoudbakken %}{{ errors.warmhoudbakken|join|raw }}{% endif %}</div>
 	</li>
 	<li>
 		<label for="brandpasta">Brandpasta <small>(voor warmhoudbakken)</small></label>
-		<input id="brandpasta" type="checkbox" name="brandpasta"{% if form.brandpasta %} checked{% endif %} />
+		<input id="brandpasta" type="checkbox" name="brandpasta"{% if formdata.brandpasta %} checked{% endif %} />
 		<div class="error">{% if errors.brandpasta %}{{ errors.brandpasta|join|raw }}{% endif %}</div>
 	</li>
 </ul>
