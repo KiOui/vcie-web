@@ -1,3 +1,4 @@
+{# vim: set noet ts=4 sw=4: #}
 {% filter replace({'\n\n\n': '\n\n'})|trim %}
 
 {% if formdata.kantine %}kantine: {{ formdata.kantine }}

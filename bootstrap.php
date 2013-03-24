@@ -29,7 +29,7 @@ define('SECRET_KEY', 'hfFmh3L8XOVq0gfAcDf3K8mFABdTjlrpGYrTB5zKQPJ14kOxrvZK353fal
 // Stel tijdzone in (Twig heeft graag dat je dit expliciet vertelt)
 date_default_timezone_set('Europe/Amsterdam');
 
-// Maak een CSRFToken
+// Maak een CSRF Token
 if (! array_key_exists('csrftoken', $_SESSION)) {
 	$_SESSION['csrftoken'] = sha1(mt_rand() . SECRET_KEY);
 }

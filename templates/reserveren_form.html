@@ -1,34 +1,17 @@
+{# vim: set noet ai ts=4 sw=4: #}
 {% extends 'base.html' %}
 
 {% block title %}
 {{ parent() }} - reservering plaatsen
 {% endblock %}
 
-{% block head %}
+{% block style %}
 {{ parent() }}
-<style type="text/css">
-form ul {
-	list-style: none;
-	margin-left: 0;
-	padding-left: 1em;
-}
-
-form ul > li {
-	border-left: solid 1px #aaa;
-	padding-left: 1em;
-	vertical-align: top;
-}
-
-form ul > li label {
-	padding: 4px 0;
-}
-
-form ul > li .error {
-	display: inline-block;
-	color: #f82020;
+form .control-group{
+	margin: 3px 0 !important;
 }
 #beginTijd, #eindTijd {
-	width: 3.2em;
+	width: 3.25em;
 }
 
 #beginTijd, #eindTijd, #dag, #maand, #jaar {
@@ -40,243 +23,381 @@ form ul > li .error {
 #jaar {
 	width: 3em;
 }
-
-
-</style>
 {% endblock %}
 
 {% block content %}
+<div class="page-header">
+	<h1>Reserveren</h1>
+</div>
 
-<form action="reserveren.php" method="post">
+<form class="form-horizontal" action="reserveren.php" method="post">
 {{ csrf_token_tag|raw }}
 
-<h2>Reserveren</h2>
+<fieldset>
+	<legend>Algemeen</legend>
 
-<h3>Algemeen</h3>
-
-<ul>
-	<li>
-		<label for="naam">Naam</label>
-		<input id="naam" type="text" name="naam" value="{{ formdata.naam }}" placeholder="naam" required />
-		<div class="error">{% if errors.naam %}{{ errors.naam|join|raw }}{% endif %}</div>
-	</li>
-	<li>
-		<label for="email">Email</label>
-		<input id="email" type="email" name="email" value="{{ formdata.email }}" placeholder="email" required />
-		<div class="error">{% if errors.email %}{{ errors.email|join|raw }}{% endif %}</div>
-	</li>
-	<li>
-		<label for="dag">Datum <small>(dag &ndash; maand &ndash; jaar)</small></label>
-		<input id="dag" type="text" name="dag" value="{{ formdata.dag }}" /> &ndash;
-		<input id="maand" type="text" name="maand" value="{{ formdata.maand|default("+7 days"|date("m")) }}" /> &ndash;
-		<input id="jaar" type="text" name="jaar" value="{{ formdata.jaar|default("+7 days"|date("Y")) }}" />
-		<div class="error">
-		{% if errors.dag %}{{ errors.dag|join|raw }}{% endif %}
-		{% if errors.maand %}{% if errors.dag %}, {% endif %}{{ errors.maand|join|raw }}{% endif %}
-		{% if errors.jaar %}{% if errors.maand %}, {% endif %}{{ errors.jaar|join|raw }}{% endif %}
+	{# naam #}
+	<div class="control-group{% if errors.naam %} error{% endif %}">
+		<label class="control-label" for="naam">Naam</label>
+		<div class="controls">
+			<input id="naam" type="text" name="naam" value="{{ formdata.naam }}" placeholder="naam" required>
+			{% if errors.naam %}<span class="help-inline">{{ errors.naam|join|raw }}</span>{% endif %}
 		</div>
-	</li>
-	<li>
-		<label for="beginTijd">Begin&ndash;/eindtijd</label>
-		van
-		<input id="beginTijd" name="beginTijd" type="text" maxlength="5" value="{{ formdata.beginTijd|default('16:00') }}" required />
-		tot
-		<input id="eindTijd" name="eindTijd" type="text" maxlength="5" value="{{ formdata.eindTijd|default('21:00') }}" required />
-		{% spaceless %}
-		<div class="error">
-			{% if errors.beginTijd %}{{ errors.beginTijd|join|raw }}
-			{% elseif errors.eindTijd %}{{ errors.eindTijd|join|raw }}
-			{% endif %}
+	</div>
+
+	{# email #}
+	<div class="control-group{% if errors.krattenBier %} email{% endif %}">
+		<label class="control-label" for="email">Email</label>
+		<div class="controls">
+			<input id="email" type="email" name="email" value="{{ formdata.email }}" placeholder="email" required>
+			{% if errors.email %}<span class="help-inline">{{ errors.email|join|raw }}</span>{% endif %}
 		</div>
-		{% endspaceless %}
-	</li>
-	<li>
-		<label for="gelegenheid">Gelegenheid</label>
-		<input id="gelegenheid" type="text" name="gelegenheid" value="{{ formdata.gelegenheid }}" placeholder="gelegenheid" required />
-		<div class="error">{% if errors.gelegenheid %}{{ errors.gelegenheid|join|raw }}{% endif %}</div>
-	</li>
-	<li>
-		<label for="vereniging">Vereniging <small>(of afdeling ofzo)</small></label>
-		<input id="vereniging" type="text" list="verenigingList" name="vereniging" value="{{ formdata.vereniging }}" placeholder="vereniging" required />
-		<div class="error">{% if errors.vereniging %}{{ errors.vereniging|join|raw }}{% endif %}</div>
-		<datalist id="verenigingList">
-		  <option value="Sigma" />
-		  <option value="Beevee" />
-		  <option value="Thalia" />
-		  <option value="Marie-Curie" />
-		  <option value="Leonardo" />
-		  <option value="Desda" />
-		  <option value="Olympus" />
-		  <option value="Congac" />
-		</datalist>
-	</li>
-	<li>
-		<label for="kantine">Kantine</label>
-		<select id="kantine" name="kantine">
-			<option value=""{% if form.kantine == '' %} selected{% endif %}>geen</option>
-			<option value="zuidkantine"{% if form.kantine == 'zuid' %} selected{% endif %}>Zuid</option>
-			<option value="noordkantine"{% if form.kantine == 'noord' %} selected{% endif %}>Noord</option>
-		</select>
-		<div class="error">{% if errors.kantine %}{{ errors.kantine|join|raw }}{% endif %}</div>
-	</li>
-	<li>
-		<label for="opmerkingen">Opmerkingen</label>
-		<textarea id="opmerkingen" name="opmerkingen" placeholder="opmerkingen" cols="40">{{ formdata.opmerkingen }}</textarea>
-		<div class="error">{% if errors.opmerkingen %}{{ errors.opmerkingen|join|raw }}{% endif %}</div>
-	</li>
-</ul>
+	</div>
 
-<h3>Drank en eten (vul getallen in)</h3>
+	{# datum #}
+	<div class="control-group{% if errors.krattenBier %} maand{% endif %}">
+		<label class="control-label" for="dag">Datum <small>(dag &ndash; maand &ndash; jaar)</small></label>
+		<div class="controls">
+			<input id="dag" type="number" name="dag" value="{{ formdata.dag }}" required> &ndash;
+			<input id="maand" type="number" name="maand" value="{{ formdata.maand|default("+7 days"|date("m")) }}" required> &ndash;
+			<input id="jaar" type="number" name="jaar" value="{{ formdata.jaar|default("+7 days"|date("Y")) }}" required>
+			{% if errors.email %}<span class="help-inline">
+				{% if errors.dag %}{{ errors.dag|join|raw }}{% endif %}
+				{% if errors.maand %}{% if errors.dag %}, {% endif %}{{ errors.maand|join|raw }}{% endif %}
+				{% if errors.jaar %}{% if errors.maand %}, {% endif %}{{ errors.jaar|join|raw }}{% endif %}
+			</span>{% endif %}
+		</div>
+	</div>
 
-<ul>
-	<li>
-		<label for="krattenBier">Kratten bier</label>
-		<input id="krattenBier" type="number" name="krattenBier" value="{{ formdata.krattenBier }}" placeholder="kratten bier" min="0" />
-		<div class="error">{% if errors.krattenBier %}{{ errors.krattenBier|join|raw }}{% endif %}</div>
-	</li>
-	<h4>
-		Wijn
-		<small>(shortcut:
-			<span class="link" onclick="$('.wijn input').prop('value', function (a, b) { return parseInt(b === '' ? 0 : b)+1; });">+1</span>
-			<span class="link" onclick="$('.wijn input').prop('value', function (a, b) { return Math.max(parseInt(b === '' ? 0 : b)-1, 0); });">-1</span>
-		)</small>
-	</h4>
-	<li class="wijn">
-		<label for="rodeWijn">Rode wijn</label>
-		<input id="rodeWijn" type="number" name="rodeWijn" value="{{ formdata.rodeWijn }}" placeholder="rode wijn" min="0" />
-		<div class="error">{% if errors.rodeWijn %}{{ errors.rodeWijn|join|raw }}{% endif %}</div>
-	</li>
-	<li class="wijn">
-		<label for="witteWijnZoet">Witte wijn (zoet)</label>
-		<input id="witteWijnZoet" type="number" name="witteWijnZoet" value="{{ formdata.witteWijnZoet }}" placeholder="witte wijn (zoet)" min="0" />
-		<div class="error">{% if errors.witteWijnZoet %}{{ errors.witteWijnZoet|join|raw }}{% endif %}</div>
-	</li>
-	<li class="wijn">
-		<label for="witteWijnDroog">Witte wijn (droog)</label>
-		<input id="witteWijnDroog" type="number" name="witteWijnDroog" value="{{ formdata.witteWijnDroog }}" placeholder="witte wijn (droog)" min="0" />
-		<div class="error">{% if errors.witteWijnDroog %}{{ errors.witteWijnDroog|join|raw }}{% endif %}</div>
-	</li>
-	<li class="wijn">
-		<label for="rose">Ros&eacute;</label>
-		<input id="rose" type="number" name="rose" value="{{ formdata.rose }}" placeholder="ros&eacute;" min="0" />
-		<div class="error">{% if errors.rose %}{{ errors.rose|join|raw }}{% endif %}</div>
-	</li>
-	<h4>
-		Fris
-		<small>(shortcut:
-			<span class="link" onclick="$('.fris input').prop('value', function (a, b) { return parseInt(b === '' ? 0 : b)+1; });">+1</span>
-			<span class="link" onclick="$('.fris input').prop('value', function (a, b) { return Math.max(parseInt(b === '' ? 0 : b)-1, 0); });">-1</span>
-		)</small>
-	</h4>
-	<li class="fris">
-		<label for="colaRegular">Cola regular</label>
-		<input id="colaRegular" type="number" name="colaRegular" value="{{ formdata.colaRegular }}" placeholder="cola regular" min="0" />
-		<div class="error">{% if errors.colaRegular %}{{ errors.colaRegular|join|raw }}{% endif %}</div>
-	</li>
-	<li class="fris">
-		<label for="colaLight">Cola light</label>
-		<input id="colaLight" type="number" name="colaLight" value="{{ formdata.colaLight }}" placeholder="cola light" min="0" />
-		<div class="error">{% if errors.colaLight %}{{ errors.colaLight|join|raw }}{% endif %}</div>
-	</li>
-	<li class="fris">
-		<label for="fanta">Fanta</label>
-		<input id="fanta" type="number" name="fanta" value="{{ formdata.fanta }}" placeholder="fanta" min="0" />
-		<div class="error">{% if errors.fanta %}{{ errors.fanta|join|raw }}{% endif %}</div>
-	</li>
-	<li class="fris">
-		<label for="sprite">Sprite</label>
-		<input id="sprite" type="number" name="sprite" value="{{ formdata.sprite }}" placeholder="sprite" min="0" />
-		<div class="error">{% if errors.sprite %}{{ errors.sprite|join|raw }}{% endif %}</div>
-	</li>
-	<li class="fris">
-		<label for="spaRood">Spa rood</label>
-		<input id="spaRood" type="number" name="spaRood" value="{{ formdata.spaRood }}" placeholder="spa rood" min="0" />
-		<div class="error">{% if errors.spaRood %}{{ errors.spaRood|join|raw }}{% endif %}</div>
-	</li>
-	<li class="fris">
-		<label for="appelsap">Appelsap</label>
-		<input id="appelsap" type="number" name="appelsap" value="{{ formdata.appelsap }}" placeholder="appelsap" min="0" />
-		<div class="error">{% if errors.appelsap %}{{ errors.appelsap|join|raw }}{% endif %}</div>
-	</li>
-	<li class="fris">
-		<label for="sinaasappelsap">Sinaasappelsap</label>
-		<input id="sinaasappelsap" type="number" name="sinaasappelsap" value="{{ formdata.sinaasappelsap }}" placeholder="sinaasappelsap" min="0" />
-		<div class="error">{% if errors.sinaasappelsap %}{{ errors.sinaasappelsap|join|raw }}{% endif %}</div>
-	</li>
-	<li class="fris">
-		<label for="cassis">Cassis</label>
-		<input id="cassis" type="number" name="cassis" value="{{ formdata.cassis }}" placeholder="cassis" min="0" />
-		<div class="error">{% if errors.cassis %}{{ errors.cassis|join|raw }}{% endif %}</div>
-	</li>
-	<li class="fris">
-		<label for="iceTeaSparkling">Ice tea (sparkling)</label>
-		<input id="iceTeaSparkling" type="number" name="iceTeaSparkling" value="{{ formdata.iceTeaSparkling }}" placeholder="ice tea (sparkling)" min="0" />
-		<div class="error">{% if errors.iceTeaSparkling %}{{ errors.iceTeaSparkling|join|raw }}{% endif %}</div>
-	</li>
-	<li class="fris">
-		<label for="iceTeaNoBubbles">Ice tea (no bubbles)</label>
-		<input id="iceTeaNoBubbles" type="number" name="iceTeaNoBubbles" value="{{ formdata.iceTeaNoBubbles }}" placeholder="ice tea (no bubbles)" min="0" />
-		<div class="error">{% if errors.iceTeaNoBubbles %}{{ errors.iceTeaNoBubbles|join|raw }}{% endif %}</div>
-	</li>
-	<br />
-	<li>
-		<label for="rioFiestaMix">Rio fiesta mix (1 kg)</label>
-		<input id="rioFiestaMix" type="number" name="rioFiestaMix" value="{{ formdata.rioFiestaMix }}" placeholder="rio fiesta mix (1 kg)" min="0" />
-		<div class="error">{% if errors.rioFiestaMix %}{{ errors.rioFiestaMix|join|raw }}{% endif %}</div>
-	</li>
-	<li>
-		<label for="AHCocktailNoten">Cocktail noten</label>
-		<input id="AHCocktailNoten" type="number" name="AHCocktailNoten" value="{{ formdata.AHCocktailNoten }}" placeholder="cocktail noten" min="0" />
-		<div class="error">{% if errors.AHCocktailNoten %}{{ errors.AHCocktailNoten|join|raw }}{% endif %}</div>
-	</li>
-	<li>
-		<label for="stapelglazen">Krat stapelglazen</label>
-		<input id="stapelglazen" type="number" name="stapelglazen" value="{{ formdata.stapelglazen }}" placeholder="krat stapelglazen" min="0" />
-		<div class="error">{% if errors.stapelglazen %}{{ errors.stapelglazen|join|raw }}{% endif %}</div>
-	</li>
-	<li>
-		<label for="wijnglazen">Krat wijnglazen</label>
-		<input id="wijnglazen" type="number" name="wijnglazen" value="{{ formdata.wijnglazen }}" placeholder="krat wijnglazen" min="0" />
-		<div class="error">{% if errors.wijnglazen %}{{ errors.wijnglazen|join|raw }}{% endif %}</div>
-	</li>
-</ul>
+	{# begin-/eindtijd #}
+	<div class="control-group{% if errors.beginTijd or errors.eindTijd %} error{% endif %}">
+		<label class="control-label" for="beginTijd">Begin&ndash;/eindtijd</label>
+		<div class="controls">
+			van
+			<input id="beginTijd" name="beginTijd" type="text" maxlength="5" value="{{ formdata.beginTijd|default('16:00') }}" required />
+			tot
+			<input id="eindTijd" name="eindTijd" type="text" maxlength="5" value="{{ formdata.eindTijd|default('21:00') }}" required />
+			{% spaceless %}
+			<div class="help-inline">
+				{% if errors.beginTijd %}{{ errors.beginTijd|join|raw }}
+				{% elseif errors.eindTijd %}{{ errors.eindTijd|join|raw }}
+				{% endif %}
+			</div>
+			{% endspaceless %}
+		</div>
+	</div>
 
-<h3>Extra's</h3>
+	{# gelegenheid #}
+	<div class="control-group{% if errors.gelegenheid %} error{% endif %}">
+		<label class="control-label" for="gelegenheid">Gelegenheid</label>
+		<div class="controls">
+			<input id="gelegenheid" type="text" name="gelegenheid" value="{{ formdata.gelegenheid }}" placeholder="gelegenheid" required>
+			{% if errors.gelegenheid %}<span class="help-inline">{{ errors.gelegenheid|join|raw }}</span>{% endif %}
+		</div>
+	</div>
 
-<ul>
-	<li>
-		<label for="muziekkastsleutel">Muziekkastsleutel</label>
-		<input id="muziekkastsleutel" type="checkbox" name="muziekkastsleutel"{% if form.muziekkastsleutel %} checked{% endif %} />
-		<div class="error">{% if errors.muziekkastsleutel %}{{ errors.muziekkastsleutel|join|raw }}{% endif %}</div>
-	</li>
-	<li>
-		<label for="statafels">Statafels</label>
-		<input id="statafels" type="number" name="statafels" value="{{ formdata.statafels }}" placeholder="aantal" min="0" />
-		<div class="error">{% if errors.statafels %}{{ errors.statafels|join|raw }}{% endif %}</div>
-	</li>
-	<li>
-		<label for="kookplaten">Kookplaten</label>
-		<input id="kookplaten" type="checkbox" name="kookplaten"{% if form.kookplaten %} checked{% endif %} />
-		<div class="error">{% if errors.kookplaten %}{{ errors.kookplaten|join|raw }}{% endif %}</div>
-	</li>
-	<li>
-		<label for="pannen">Pannen</label>
-		<input id="pannen" type="checkbox" name="pannen"{% if form.pannen %} checked{% endif %} />
-		<div class="error">{% if errors.pannen %}{{ errors.pannen|join|raw }}{% endif %}</div>
-	</li>
-	<li>
-		<label for="warmhoudbakken">Warmhoudbakken</label>
-		<input id="warmhoudbakken" type="checkbox" name="warmhoudbakken"{% if form.warmhoudbakken %} checked{% endif %} />
-		<div class="error">{% if errors.warmhoudbakken %}{{ errors.warmhoudbakken|join|raw }}{% endif %}</div>
-	</li>
-	<li>
-		<label for="brandpasta">Brandpasta <small>(voor warmhoudbakken)</small></label>
-		<input id="brandpasta" type="checkbox" name="brandpasta"{% if form.brandpasta %} checked{% endif %} />
-		<div class="error">{% if errors.brandpasta %}{{ errors.brandpasta|join|raw }}{% endif %}</div>
-	</li>
-</ul>
+	{# vereniging #}
+	<div class="control-group{% if errors.vereniging %} error{% endif %}">
+		<label class="control-label" for="vereniging">Vereniging <small>(of afdeling ofzo)</small></label>
+		<div class="controls">
+			<input class="typeahead" id="vereniging" type="text" name="vereniging" value="{{ formdata.vereniging }}" placeholder="vereniging" required
+			data-provide="typeahead" data-source='["Sigma", "Beevee", "Thalia", "Marie-Curie", "Leonardo", "Desda", "Olympus", "Congac"]'>
+			{% if errors.vereniging %}<span class="help-inline">{{ errors.vereniging|join|raw }}</span>{% endif %}
+		</div>
+	</div>
 
-<input type="submit" name="submit" value="Versturen" />
+	{# kantine #}
+	<div class="control-group{% if errors.kantine %} error{% endif %}">
+		<label class="control-label" for="kantine">Kantine</label>
+		<div class="controls">
+			<select id="kantine" name="kantine">
+				<option value=""{% if formdata.kantine == '' %} selected{% endif %}>geen</option>
+				<option value="zuidkantine"{% if formdata.kantine == 'zuid' %} selected{% endif %}>Zuid</option>
+				<option value="noordkantine"{% if formdata.kantine == 'noord' %} selected{% endif %}>Noord</option>
+			</select>
+			{% if errors.kantine %}<span class="help-inline">{{ errors.kantine|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# opmerkingen #}
+	<div class="control-group{% if errors.opmerkingen %} error{% endif %}">
+		<label class="control-label" for="opmerkingen">Opmerkingen</label>
+		<div class="controls">
+			<textarea id="opmerkingen" name="opmerkingen" placeholder="opmerkingen" cols="40">{{ formdata.opmerkingen }}</textarea>
+			{% if errors.opmerkingen %}<span class="help-inline">{{ errors.opmerkingen|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<legend>Drank en snacks <small>(vul getallen in)</small></legend>
+
+	{# krattenBier #}
+	<div class="control-group{% if errors.krattenBier %} error{% endif %}">
+		<label class="control-label" for="krattenBier">Kratten bier</label>
+		<div class="controls">
+			<input class="span1" id="krattenBier" type="text" name="krattenBier" value="{{ formdata.krattenBier }}" min="0" >
+			{% if errors.krattenBier %}<span class="help-inline">{{ errors.krattenBier|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	<legend>
+		<small>
+			Wijn
+			(shortcut:
+				<div class="btn-group">
+					<span class="btn btn-mini" onclick="$('.wijn input').prop('value', function (a, b) { return Math.max(parseInt(b === '' ? 0 : b)-1, 0); });">&#8722;1</span>
+					<span class="btn btn-mini btn-primary" onclick="$('.wijn input').prop('value', function (a, b) { return parseInt(b === '' ? 0 : b)+1; });">+1</span>
+				</div>
+			)
+		</small>
+	</legend>
+
+	{# rodeWijn #}
+	<div class="control-group{% if errors.rodeWijn %} error{% endif %} wijn">
+		<label class="control-label" for="rodeWijn">Rode wijn</label>
+		<div class="controls">
+			<input class="span1" id="rodeWijn" type="text" name="rodeWijn" value="{{ formdata.rodeWijn }}" min="0" >
+			{% if errors.rodeWijn %}<span class="help-inline">{{ errors.rodeWijn|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# witteWijnZoet #}
+	<div class="control-group{% if errors.witteWijnZoet %} error{% endif %} wijn">
+		<label class="control-label" for="witteWijnZoet">Witte wijn (zoet)</label>
+		<div class="controls">
+			<input class="span1" id="witteWijnZoet" type="text" name="witteWijnZoet" value="{{ formdata.witteWijnZoet }}" min="0" >
+			{% if errors.witteWijnZoet %}<span class="help-inline">{{ errors.witteWijnZoet|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# witteWijnDroog #}
+	<div class="control-group{% if errors.witteWijnDroog %} error{% endif %} wijn">
+		<label class="control-label" for="witteWijnDroog">Witte wijn (droog)</label>
+		<div class="controls">
+			<input class="span1" id="witteWijnDroog" type="text" name="witteWijnDroog" value="{{ formdata.witteWijnDroog }}" min="0" >
+			{% if errors.witteWijnDroog %}<span class="help-inline">{{ errors.witteWijnDroog|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# rose #}
+	<div class="control-group{% if errors.rose %} error{% endif %} wijn">
+		<label class="control-label" for="rose">Ros&eacute;</label>
+		<div class="controls">
+			<input class="span1" id="rose" type="text" name="rose" value="{{ formdata.rose }}" min="0" >
+			{% if errors.rose %}<span class="help-inline">{{ errors.rose|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	<legend>
+		<small>
+			Fris
+			(shortcut:
+				<div class="btn-group">
+					<span class="btn btn-mini" onclick="$('.fris input').prop('value', function (a, b) { return Math.max(parseInt(b === '' ? 0 : b)-1, 0); });">&#8722;1</span>
+					<span class="btn btn-mini btn-primary" onclick="$('.fris input').prop('value', function (a, b) { return parseInt(b === '' ? 0 : b)+1; });">+1</span>
+				)
+				</div>
+			)
+		</small>
+	</legend>
+
+	{# colaRegular #}
+	<div class="control-group{% if errors.colaRegular %} error{% endif %} fris">
+		<label class="control-label" for="colaRegular">Cola regular</label>
+		<div class="controls">
+			<input class="span1" id="colaRegular" type="text" name="colaRegular" value="{{ formdata.colaRegular }}" min="0" >
+			{% if errors.colaRegular %}<span class="help-inline">{{ errors.colaRegular|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# colaLight #}
+	<div class="control-group{% if errors.colaLight %} error{% endif %} fris">
+		<label class="control-label" for="colaLight">Cola light</label>
+		<div class="controls">
+			<input class="span1" id="colaLight" type="text" name="colaLight" value="{{ formdata.colaLight }}" min="0" >
+			{% if errors.colaLight %}<span class="help-inline">{{ errors.colaLight|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# fanta #}
+	<div class="control-group{% if errors.fanta %} error{% endif %} fris">
+		<label class="control-label" for="fanta">Fanta</label>
+		<div class="controls">
+			<input class="span1" id="fanta" type="text" name="fanta" value="{{ formdata.fanta }}" min="0" >
+			{% if errors.fanta %}<span class="help-inline">{{ errors.fanta|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# sprite #}
+	<div class="control-group{% if errors.sprite %} error{% endif %} fris">
+		<label class="control-label" for="sprite">Sprite</label>
+		<div class="controls">
+			<input class="span1" id="sprite" type="text" name="sprite" value="{{ formdata.sprite }}" min="0" >
+			{% if errors.sprite %}<span class="help-inline">{{ errors.sprite|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# spaRood #}
+	<div class="control-group{% if errors.spaRood %} error{% endif %} fris">
+		<label class="control-label" for="spaRood">Spa rood</label>
+		<div class="controls">
+			<input class="span1" id="spaRood" type="text" name="spaRood" value="{{ formdata.spaRood }}" min="0" >
+			{% if errors.spaRood %}<span class="help-inline">{{ errors.spaRood|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# appelsap #}
+	<div class="control-group{% if errors.appelsap %} error{% endif %} fris">
+		<label class="control-label" for="appelsap">Appelsap</label>
+		<div class="controls">
+			<input class="span1" id="appelsap" type="text" name="appelsap" value="{{ formdata.appelsap }}" min="0" >
+			{% if errors.appelsap %}<span class="help-inline">{{ errors.appelsap|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# sinaasappelsap #}
+	<div class="control-group{% if errors.sinaasappelsap %} error{% endif %} fris">
+		<label class="control-label" for="sinaasappelsap">Sinaasappelsap</label>
+		<div class="controls">
+			<input class="span1" id="sinaasappelsap" type="text" name="sinaasappelsap" value="{{ formdata.sinaasappelsap }}" min="0" >
+			{% if errors.sinaasappelsap %}<span class="help-inline">{{ errors.sinaasappelsap|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# cassis #}
+	<div class="control-group{% if errors.cassis %} error{% endif %} fris">
+		<label class="control-label" for="cassis">Cassis</label>
+		<div class="controls">
+			<input class="span1" id="cassis" type="text" name="cassis" value="{{ formdata.cassis }}" min="0" >
+			{% if errors.cassis %}<span class="help-inline">{{ errors.cassis|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# iceTeaSparkling #}
+	<div class="control-group{% if errors.iceTeaSparkling %} error{% endif %} fris">
+		<label class="control-label" for="iceTeaSparkling">Ice tea (sparkling)</label>
+		<div class="controls">
+			<input class="span1" id="iceTeaSparkling" type="text" name="iceTeaSparkling" value="{{ formdata.iceTeaSparkling }}" min="0" >
+			{% if errors.iceTeaSparkling %}<span class="help-inline">{{ errors.iceTeaSparkling|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# iceTeaNoBubbles #}
+	<div class="control-group{% if errors.iceTeaNoBubbles %} error{% endif %} fris">
+		<label class="control-label" for="iceTeaNoBubbles">Ice tea (no bubbles)</label>
+		<div class="controls">
+			<input class="span1" id="iceTeaNoBubbles" type="text" name="iceTeaNoBubbles" value="{{ formdata.iceTeaNoBubbles }}" min="0" >
+			{% if errors.iceTeaNoBubbles %}<span class="help-inline">{{ errors.iceTeaNoBubbles|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# rioFiestaMix #}
+	<div class="control-group{% if errors.rioFiestaMix %} error{% endif %}">
+		<label class="control-label" for="rioFiestaMix">Rio fiesta mix <small>(1 kg)</small></label>
+		<div class="controls">
+			<input class="span1" id="rioFiestaMix" type="text" name="rioFiestaMix" value="{{ formdata.rioFiestaMix }}" min="0" >
+			{% if errors.rioFiestaMix %}<span class="help-inline">{{ errors.rioFiestaMix|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# AHCocktailNoten #}
+	<div class="control-group{% if errors.AHCocktailNoten %} error{% endif %}">
+		<label class="control-label" for="AHCocktailNoten">Cocktail noten</label>
+		<div class="controls">
+			<input class="span1" id="AHCocktailNoten" type="text" name="AHCocktailNoten" value="{{ formdata.AHCocktailNoten }}" min="0" >
+			{% if errors.AHCocktailNoten %}<span class="help-inline">{{ errors.AHCocktailNoten|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# stapelglazen #}
+	<div class="control-group{% if errors.stapelglazen %} error{% endif %}">
+		<label class="control-label" for="stapelglazen">Krat stapelglazen</label>
+		<div class="controls">
+			<input class="span1" id="stapelglazen" type="text" name="stapelglazen" value="{{ formdata.stapelglazen }}" min="0">
+			{% if errors.stapelglazen %}<span class="help-inline">{{ errors.stapelglazen|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# wijnglazen #}
+	<div class="control-group{% if errors.wijnglazen %} error{% endif %}">
+		<label class="control-label" for="wijnglazen">Krat wijnglazen</label>
+		<div class="controls">
+			<input class="span1" id="wijnglazen" type="text" name="wijnglazen" value="{{ formdata.wijnglazen }}" min="0">
+			{% if errors.wijnglazen %}<span class="help-inline">{{ errors.wijnglazen|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+<legend>Extra's</legend>
+
+	{# muziekkastsleutel #}
+	<div class="control-group{% if errors.muziekkastsleutel %} error{% endif %}">
+		<div class="controls">
+			<label class="checkbox">
+				<input type="checkbox" name="muziekkastsleutel" {% if formdata.muziekkastsleutel %} checked{% endif %}>
+				muziekkastsleutel
+			</label>
+		</div>
+	</div>
+
+	{# statafels #}
+	<div class="control-group{% if errors.statafels %} error{% endif %}">
+		<label class="control-label" for="statafels">Statafels</label>
+		<div class="controls">
+			<input class="span1" id="statafels" type="text" name="statafels" value="{{ formdata.statafels }}" min="0">
+			{% if errors.statafels %}<span class="help-inline">{{ errors.statafels|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
+	{# kookplaten #}
+	<div class="control-group{% if errors.kookplaten %} error{% endif %}">
+		<div class="controls">
+			<label class="checkbox">
+				<input type="checkbox" name="kookplaten" {% if formdata.kookplaten %} checked{% endif %}>
+				kookplaten
+			</label>
+		</div>
+	</div>
+
+
+	{# pannen #}
+	<div class="control-group{% if errors.pannen %} error{% endif %}">
+		<div class="controls">
+			<label class="checkbox">
+				<input type="checkbox" name="pannen" {% if formdata.pannen %} checked{% endif %}>
+				pannen
+			</label>
+		</div>
+	</div>
+
+
+	{# warmhoudbakken #}
+	<div class="control-group{% if errors.warmhoudbakken %} error{% endif %}">
+		<div class="controls">
+			<label class="checkbox">
+				<input type="checkbox" name="warmhoudbakken" {% if formdata.warmhoudbakken %} checked{% endif %}>
+				warmhoudbakken
+			</label>
+		</div>
+	</div>
+
+
+	{# brandpasta #}
+	<div class="control-group{% if errors.brandpasta %} error{% endif %}">
+		<div class="controls">
+			<label class="checkbox">
+				<input type="checkbox" name="brandpasta" {% if formdata.brandpasta %} checked{% endif %}>
+				brandpasta
+			</label>
+		</div>
+	</div>
+</fieldset>
+
+<div class="control-group">
+	<div class="controls">
+		<input class="btn btn-primary btn-large" type="submit" name="submit" value="verstuur reservering">
+	</div>
+</div>
+
 </form>
-
 {% endblock %}
