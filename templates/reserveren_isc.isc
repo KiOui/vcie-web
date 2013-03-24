@@ -1,3 +1,4 @@
+{# vim: set noet ts=4 sw=4: #}
 {% filter replace({'\n': '\r\n'})|trim %}
 {% set addslashes = {'\n': '\\n', '\r': '\\r'} %}
 BEGIN:VCALENDAR

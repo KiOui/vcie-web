@@ -1,3 +1,4 @@
+{# vim: set noet ts=4 sw=4: #}
 {% filter replace({'\n\n\n': '\n\n'})|trim %}
 
 {% if formdata.kantine %}kantine: {{ formdata.kantine }}
@@ -14,9 +15,9 @@
 {% endif %}
 {% if formdata.rodeWijn %}{{ formdata.rodeWijn }} flessen rode wijn
 {% endif %}
-{% if formdata.witteWijnZoet %}{{ formdata.witteWijnZoet }} flessen zoete witte wijn
+{% if formdata.witteWijnZoet %}{{ formdata.witteWijnZoet }} flessen witte wijn zoet
 {% endif %}
-{% if formdata.witteWijnDroog %}{{ formdata.witteWijnDroog }} flessen droge witte wijn
+{% if formdata.witteWijnDroog %}{{ formdata.witteWijnDroog }} flessen witte wijn droog
 {% endif %}
 {% if formdata.rose %}{{ formdata.rose }} flessen rosé
 {% endif %}
