@@ -1,7 +1,7 @@
 {# vim: set noet ts=4 sw=4: #}
 {% extends 'base.html' %}
 
-{% set iframe_url = "https://www.google.com/calendar/embed?title=Voorraadcie%20reserveringen&amp;showTitle=0&amp;showPrint=0&amp;showTz=0&amp;height=600&amp;wkst=2&amp;hl=nl&amp;bgcolor=%23ffffff&amp;src=4f4udndqhhtnvnqq44ftt2ogpg%40group.calendar.google.com&amp;color=%232952A3&amp;src=b17evjnmba8no3fr8b9rf0f8sc%40group.calendar.google.com&amp;color=%23A32929&amp;src=nmhous87hn5ktiih2h3ncu598o%40group.calendar.google.com&amp;color=%23528800&amp;src=p%23weeknum%40group.v.calendar.google.com&amp;color=%235229A3&amp;ctz=Europe%2FAmsterdam" %}
+{% set iframe_url = "https://www.google.com/calendar/embed?title=Voorraadcie%20reserveringen&amp;showTitle=0&amp;showPrint=0&amp;showTz=0&amp;height=600&amp;wkst=2&amp;hl=nl&amp;bgcolor=%23ffffff&amp;src=b17evjnmba8no3fr8b9rf0f8sc%40group.calendar.google.com&amp;color=%232952A3&amp;src=nmhous87hn5ktiih2h3ncu598o%40group.calendar.google.com&amp;color=%23A32929&amp;ctz=Europe%2FAmsterdam" %}
 
 {% block content %}
 <div class="page-header">
@@ -13,8 +13,6 @@
 	<dd>reserveringen van de zuidkantine</dd>
 	<dt style="color: #2952A3">blauw</dt>
 	<dd>reserveringen van de noordkantine</dd>
-	<dt style="color: #528800">groen</dt>
-	<dd>reserveringen zonder kantine</dd>
 </dl>
 <h3>Voorraadcie reserveringen <small><a href="{{ iframe_url|raw }}">directe link</a></small></h3>
 <iframe src="{{ iframe_url|raw }}" width="700" height="600" frameborder="0" scrolling="no"></iframe>
