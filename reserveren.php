@@ -42,6 +42,7 @@ if (empty($_POST)) {
 				$body = $template->render(array('formdata' => $form, 'errors' => $errors, 'validator' => $validator));
 				$mail = new PHPMailer(true);
 				//$mail->IsSendmail();
+				$mail->CharSet = 'utf-8';
 				$mail->SetWordWrap();
 				$mail->AddAddress($reservering_emailadres);
 				if (isset($form['ccmij']) && $form['ccmij']) {
@@ -57,7 +58,7 @@ if (empty($_POST)) {
 					$mail->FixEOL($isc_template->render(array('formdata' => $form))),
 					$form['uid'] . '.isc',
 					'8bit',
-					'text/calendar');
+					'text/calendar; charset=utf-8');
 				$mail->Send();
 			} catch (phpmailerException $e) {
 				echo $e->errorMessage();
