@@ -10,7 +10,7 @@ DTSTAMP;TZID=Europe/Amsterdam:{{ formdata.beginTijd_datetime|date('Ymd\\THis\\Z'
 ORGANIZER;CN={{ formdata.naam|replace(addslashes) }}:mailto:{{ formdata.email|replace(addslashes) }}
 DTSTART;TZID=Europe/Amsterdam:{{ formdata.beginTijd_datetime|date('Ymd\\THis\\Z') }}
 DTEND;TZID=Europe/Amsterdam:{{ formdata.eindTijd_datetime|date('Ymd\\THis\\Z') }}
-SUMMARY:{{ formdata.naam|replace(addslashes) }}: {{ formdata.gelegenheid|replace(addslashes) }}
+SUMMARY:{{ formdata.vereniging|replace(addslashes) }}: {{ formdata.gelegenheid|replace(addslashes) }} - {{ formdata.naam|replace(addslashes) }}
 {% if formdata.kantine %}LOCATION:{{ formdata.kantine }}
 {% endif %}DESCRIPTION:{% filter replace(addslashes) %}{% include 'reserveren_lijst.txt' %}{% endfilter %}
 {# de volgende regel is een bedoelde witregel #}
