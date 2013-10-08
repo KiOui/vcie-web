@@ -17,6 +17,13 @@ $twig = new Twig_Environment(new Twig_Loader_Filesystem('templates/'), array(
 	'cache' => '/tmp/vcieCache/',
 ));
 
+// Add email obscurify function to Twig
+$email_function = new Twig_SimpleFunction('email', function ($addr) {
+	return '<script type="text/javascript">document.write("' . str_rot13($addr) . '".rot13());' .
+            '</script><noscript>(e-mailadres verborgen)</noscript>';
+});
+$twig->addFunction($email_function);
+
 // Include form-validation
 require_once(LIB_DIR . 'formvalidation.php');
 
