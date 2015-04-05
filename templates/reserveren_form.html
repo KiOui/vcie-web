@@ -75,7 +75,7 @@ form .control-group{
 
 	{# begin-/eindtijd #}
 	<div class="control-group{% if errors.beginTijd or errors.eindTijd %} error{% endif %}">
-		<label class="control-label" for="beginTijd">Begin&ndash;/eindtijd</label>
+		<label class="control-label" for="beginTijd">Begin-/eindtijd</label>
 		<div class="controls">
 			van
 			<input id="beginTijd" name="beginTijd" type="text" maxlength="5" value="{{ formdata.beginTijd|default('16:00') }}" required />
