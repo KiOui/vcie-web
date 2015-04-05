@@ -18,43 +18,10 @@
 <form action="reserveren.php" method="post">
 	{{ csrf_token_tag|raw }}
 	<input type="hidden" name="confirm">
-	<input type="hidden" name="naam" value="{{ formdata.naam }}">
-	<input type="hidden" name="email" value="{{ formdata.email }}">
-	<input type="hidden" name="dag" value="{{ formdata.dag }}">
-	<input type="hidden" name="maand" value="{{ formdata.maand }}">
-	<input type="hidden" name="jaar" value="{{ formdata.jaar }}">
-	<input type="hidden" name="beginTijd" value="{{ formdata.beginTijd }}">
-	<input type="hidden" name="eindTijd" value="{{ formdata.eindTijd }}">
-	<input type="hidden" name="gelegenheid" value="{{ formdata.gelegenheid }}">
-	<input type="hidden" name="vereniging" value="{{ formdata.vereniging }}">
-	<input type="hidden" name="kantine" value="{{ formdata.kantine }}">
-	<input type="hidden" name="opmerkingen" value="{{ formdata.opmerkingen }}">
-	<input type="hidden" name="krattenBier" value="{{ formdata.krattenBier }}">
-	<input type="hidden" name="rodeWijn" value="{{ formdata.rodeWijn }}">
-	<input type="hidden" name="witteWijnZoet" value="{{ formdata.witteWijnZoet }}">
-	<input type="hidden" name="witteWijnDroog" value="{{ formdata.witteWijnDroog }}">
-	<input type="hidden" name="rose" value="{{ formdata.rose }}">
-	<input type="hidden" name="colaRegular" value="{{ formdata.colaRegular }}">
-	<input type="hidden" name="colaLight" value="{{ formdata.colaLight }}">
-	<input type="hidden" name="fanta" value="{{ formdata.fanta }}">
-	<input type="hidden" name="sprite" value="{{ formdata.sprite }}">
-	<input type="hidden" name="spaRood" value="{{ formdata.spaRood }}">
-	<input type="hidden" name="appelsap" value="{{ formdata.appelsap }}">
-	<input type="hidden" name="sinaasappelsap" value="{{ formdata.sinaasappelsap }}">
-	<input type="hidden" name="cassis" value="{{ formdata.cassis }}">
-	<input type="hidden" name="iceTeaSparkling" value="{{ formdata.iceTeaSparkling }}">
-	<input type="hidden" name="iceTeaNoBubbles" value="{{ formdata.iceTeaNoBubbles }}">
-	<input type="hidden" name="rioFiestaMix" value="{{ formdata.rioFiestaMix }}">
-	<input type="hidden" name="AHCocktailNoten" value="{{ formdata.AHCocktailNoten }}">
-	<input type="hidden" name="stapelglazen" value="{{ formdata.stapelglazen }}">
-	<input type="hidden" name="wijnglazen" value="{{ formdata.wijnglazen }}">
-	<input type="hidden" name="muziekkastsleutel" value="{{ formdata.muziekkastsleutel }}">
-	<input type="hidden" name="statafels" value="{{ formdata.statafels }}">
-	<input type="hidden" name="kookplaten" value="{{ formdata.kookplaten }}">
-	<input type="hidden" name="pannen" value="{{ formdata.pannen }}">
-	<input type="hidden" name="warmhoudbakken" value="{{ formdata.warmhoudbakken }}">
-	<input type="hidden" name="brandpasta" value="{{ formdata.brandpasta }}">
-	<label class="checkbox"><em>
+	{% for item in ['naam', 'email', 'dag', 'maand', 'jaar', 'beginTijd', 'eindTijd', 'gelegenheid', 'vereniging', 'kantine', 'opmerkingen', 'krattenBier', 'rodeWijn', 'witteWijnZoet', 'witteWijnDroog', 'rose', 'colaRegular', 'colaLight', 'fanta', 'sprite', 'spaRood', 'appelsap', 'sinaasappelsap', 'cassis', 'iceTeaSparkling', 'iceTeaNoBubbles', 'rioFiestaMix', 'AHCocktailNoten', 'stapelglazen', 'wijnglazen', 'muziekkastsleutel', 'statafels', 'kookplaten', 'pannen', 'warmhoudbakken', 'brandpasta'] %}
+	<input type="hidden" name="item" value="{{ formdata[item] }}">
+	{% endfor %}
+	 	<label class="checkbox"><em>
 		Stuur mij een kopie
 		<input type="checkbox" name="ccmij" checked>
 	</em></label>
