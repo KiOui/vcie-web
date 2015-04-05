@@ -40,8 +40,8 @@ if (empty($_POST)) {
 			try {
 				$template = $twig->loadTemplate('reserveren_email.txt');
 				$body = $template->render(array('formdata' => $form, 'errors' => $errors, 'validator' => $validator));
+				
 				$mail = new PHPMailer(true);
-				//$mail->IsSendmail();
 				$mail->CharSet = 'utf-8';
 				$mail->SetWordWrap();
 				$mail->AddAddress($reservering_emailadres);

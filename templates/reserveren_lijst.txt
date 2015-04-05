@@ -62,5 +62,8 @@
 {% endif %}
 {% if formdata.brandpasta %}brandpasta
 {% endif %}
+{% if formdata.steekwagen %}steekwagen
+{% endif %}
+
 
 {% endfilter %}

@@ -362,7 +362,6 @@ form .control-group{
 		</div>
 	</div>
 
-
 	{# pannen #}
 	<div class="control-group{% if errors.pannen %} error{% endif %}">
 		<div class="controls">
@@ -372,7 +371,6 @@ form .control-group{
 			</label>
 		</div>
 	</div>
-
 
 	{# warmhoudbakken #}
 	<div class="control-group{% if errors.warmhoudbakken %} error{% endif %}">
@@ -384,13 +382,22 @@ form .control-group{
 		</div>
 	</div>
 
-
 	{# brandpasta #}
 	<div class="control-group{% if errors.brandpasta %} error{% endif %}">
 		<div class="controls">
 			<label class="checkbox">
 				<input type="checkbox" name="brandpasta" {% if formdata.brandpasta %} checked{% endif %}>
 				brandpasta
+			</label>
+		</div>
+	</div>
+
+	{# steekwagen #}
+	<div class="control-group{% if errors.steekwagen %} error{% endif %}">
+		<div class="controls">
+			<label class="checkbox">
+				<input type="checkbox" name="steekwagen" {% if formdata.steekwagen %} checked{% endif %}>
+				steekwagen
 			</label>
 		</div>
 	</div>
