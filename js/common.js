@@ -1,5 +1,5 @@
 // Implement rot13 for email obscurification
-javascript:String.prototype.rot13 = function(s)
+javascript:String.prototype.rot13 = function rot13(s)
 {
   return (s = (s) ? s : this).split('').map(function(_)
   {
