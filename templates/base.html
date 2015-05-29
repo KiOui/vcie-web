@@ -11,6 +11,7 @@
 	<link rel="shortcut icon" href="favicon.png">
 	<style type="text/css">
 {% block style %}
+{# note that content in the `style` block will be encaspsulated in <style> tags #}
 body {
 	padding-top: 40px;
 }
@@ -23,7 +24,12 @@ a.brand {
 }
 {% endblock %}
 	</style>
+{% block scripts %}
+{# note that content in the `scripts` block will *not* be encaspsulated in <script> tags #}
+  <script type="text/javascript" charset="utf-8" src="js/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/common.js"></script>
+{% endblock %}
 {% endblock %}
 </head>
 <body>
@@ -49,10 +55,6 @@ a.brand {
 		{% block content %}{% endblock %}
 	</div>
 	<hr>
-	{% block scripts %}
-		<script type="text/javascript" charset="utf-8" src="js/jquery.min.js"></script>
-		<script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js"></script>
-	{% endblock %}
 	<div id="footer" class="container container-narrow">
 		{% block footer %}{% endblock %}
 	</div>

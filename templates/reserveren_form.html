@@ -25,6 +25,53 @@ form .control-group{
 }
 {% endblock %}
 
+{% block scripts %}
+{{ parent() }}
+<script type="text/javascript">
+$(document).ready(function _vcieReadyHandler() {
+  WINE_SCALES = {
+    rodeWijn: 171.0/210.0,
+    witteWijnZoet: 142.0/210.0,
+    witteWijnDroog: 1.0,
+    rose: 76.0/210.0
+  };
+  WINE_PRODUCTS = [];
+  for (var product in WINE_SCALES) WINE_PRODUCTS.push(product);
+  FRIS_SCALES = {
+    colaRegular: 1.0,
+    colaLight: 134.0/506.0,
+    fanta: 254.0/506.0,
+    sprite: 143.0/506.0,
+    spaRood: 68.0/506.0,
+    appelsap: 157.0/506.0,
+    sinaasappelsap: 250.0/506.0,
+    cassis: 173.0/506.0,
+    iceTeaSparkling: 200.0/506.0,
+    iceTeaNoBubbles: 92.0/506.0
+  };
+  FRIS_PRODUCTS = [];
+  for (var product in FRIS_SCALES) FRIS_PRODUCTS.push(product);
+
+  $("#wijnShortcutPlus").click(function _vcieClickHandler(e) {
+    if (e.ctrlKey) vcieAddToProducts(WINE_PRODUCTS, WINE_SCALES, 5);
+    else vcieAddToProducts(WINE_PRODUCTS, WINE_SCALES, 1);
+  });
+  $("#wijnShortcutMin").click(function _vcieClickHandler(e) {
+    if (e.ctrlKey) vcieAddToProducts(WINE_PRODUCTS, WINE_SCALES, -5);
+    else vcieAddToProducts(WINE_PRODUCTS, WINE_SCALES, -1);
+  });
+  $("#frisShortcutPlus").click(function _vcieClickHandler(e) {
+    if (e.ctrlKey) vcieAddToProducts(FRIS_PRODUCTS, FRIS_SCALES, 5);
+    else vcieAddToProducts(FRIS_PRODUCTS, FRIS_SCALES, 1);
+  });
+  $("#frisShortcutMin").click(function _vcieClickHandler(e) {
+    if (e.ctrlKey) vcieAddToProducts(FRIS_PRODUCTS, FRIS_SCALES, -5);
+    else vcieAddToProducts(FRIS_PRODUCTS, FRIS_SCALES, -1);
+  });
+});
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="page-header">
 	<h1>Reserveren</h1>
@@ -149,8 +196,8 @@ form .control-group{
 			Wijn
 			(shortcut:
 				<div class="btn-group">
-					<span class="btn btn-mini" onclick="$('.wijn input').prop('value', function (a, b) { return Math.max(parseInt(b === '' ? 0 : b)-1, 0); });">&#8722;1</span>
-					<span class="btn btn-mini btn-primary" onclick="$('.wijn input').prop('value', function (a, b) { return parseInt(b === '' ? 0 : b)+1; });">+1</span>
+					<span class="btn btn-mini" id="wijnShortcutMin">&#8722;1</span>
+					<span class="btn btn-mini btn-primary" id="wijnShortcutPlus">+1</span>
 				</div>
 			)
 		</small>
@@ -197,8 +244,8 @@ form .control-group{
 			Fris
 			(shortcut:
 				<div class="btn-group">
-					<span class="btn btn-mini" onclick="$('.fris input').prop('value', function (a, b) { return Math.max(parseInt(b === '' ? 0 : b)-1, 0); });">&#8722;1</span>
-					<span class="btn btn-mini btn-primary" onclick="$('.fris input').prop('value', function (a, b) { return parseInt(b === '' ? 0 : b)+1; });">+1</span>
+					<span class="btn btn-mini" id="frisShortcutMin">&#8722;1</span>
+					<span class="btn btn-mini btn-primary" id="frisShortcutPlus">+1</span>
 				)
 				</div>
 			)
