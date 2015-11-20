@@ -13,6 +13,8 @@
 
 {% if formdata.krattenBier %}{{ formdata.krattenBier }} kratten bier
 {% endif %}
+{% if formdata.krattenBier %}voorkeur voor beugels
+{% endif %}
 {% if formdata.rodeWijn %}{{ formdata.rodeWijn }} flessen rode wijn
 {% endif %}
 {% if formdata.witteWijnZoet %}{{ formdata.witteWijnZoet }} flessen witte wijn zoet
