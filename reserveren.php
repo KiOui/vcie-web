@@ -1,7 +1,7 @@
 <?php
 
 require('bootstrap.php');
-require_once(LIB_DIR . 'phpmailer.php');
+require_once(LIB_DIR . 'class.phpmailer.php');
 
 
 if (empty($_POST)) {
