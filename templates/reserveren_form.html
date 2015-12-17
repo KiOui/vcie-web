@@ -195,7 +195,7 @@ $(document).ready(function _vcieReadyHandler() {
 	<div class="control-group{% if errors.voorkeurVoorGrolschBeugels %} error{% endif %}">
 		<label class="control-label" for="voorkeurVoorGrolschBeugels">Ik wil graag beugels</label>
 		<div class="controls">
-			<input id="voorkeurVoorGrolschBeugels" type="checkbox">
+			<input id="voorkeurVoorGrolschBeugels" name="voorkeurVoorGrolschBeugels" type="checkbox">
 			{% if errors.voorkeurVoorGrolschBeugels %}<span class="help-inline">
 				{{ errors.voorkeurVoorGrolschBeugels|join|raw }}
 			</span>{% else %}
