@@ -191,19 +191,6 @@ $(document).ready(function _vcieReadyHandler() {
 		</div>
 	</div>
 
-	{# voorkeurVoorGrolschBeugels #}
-	<div class="control-group{% if errors.voorkeurVoorGrolschBeugels %} error{% endif %}">
-		<label class="control-label" for="voorkeurVoorGrolschBeugels">Ik wil graag beugels</label>
-		<div class="controls">
-			<input id="voorkeurVoorGrolschBeugels" name="voorkeurVoorGrolschBeugels" type="checkbox">
-			{% if errors.voorkeurVoorGrolschBeugels %}<span class="help-inline">
-				{{ errors.voorkeurVoorGrolschBeugels|join|raw }}
-			</span>{% else %}
-			<span id="voorkeurVoorGrolschBeugels_help" class="help-inline">Let wel: we garanderen niks!</span>
-			{% endif %}
-		</div>
-	</div>
-
 	<legend>
 		<small>
 			Wijn
