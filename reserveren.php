@@ -52,7 +52,7 @@ if (empty($_POST)) {
 				$mail->ClearReplyTos(); // Bij SetFrom wordt no-reply toegevoegd als Reply-To
 				$mail->AddReplyTo($form['email'], $form['naam']);
 				$mail->Body = $body;
-				$mail->Subject = 'Bestelling "' . $form['gelegenheid'] . '" van ' . $form['naam'];
+				$mail->Subject = 'Reservering "' . $form['gelegenheid'] . '" van ' . $form['naam'];
 				$isc_template = $twig->loadTemplate('reserveren_isc.isc');
 				$mail->AddStringAttachment(
 					$mail->FixEOL($isc_template->render(array('formdata' => $form))),
