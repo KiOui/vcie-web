@@ -42,6 +42,9 @@ if (empty($_POST)) {
 				$body = $template->render(array('formdata' => $form, 'errors' => $errors, 'validator' => $validator));
 				
 				$mail = new PHPMailer(true);
+				$mail->isSMTP();
+				$mail->Host = 'localhost';
+				$mail->SMTPAuth = false;
 				$mail->CharSet = 'utf-8';
 				$mail->SetWordWrap();
 				$mail->AddAddress($reservering_emailadres);
