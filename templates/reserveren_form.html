@@ -170,11 +170,22 @@ $(document).ready(function _vcieReadyHandler() {
 		</div>
 	</div>
 
+	{# inventarisborrel #}
+	<div class="control-group{% if errors.inventarisborrel %} error{% endif %}">
+		<label class="control-label" for="inventarisborrel">Overige inventarisborrel</label>
+		<div class="controls">
+			<textarea id="inventarisborrel" name="inventarisborrel"
+			placeholder="Heb je een 'overige inventarisborrel', geef het hier aan. Geef ook aan wie er nuchter blijven."
+			cols="40" rows="4">{{ formdata.inventarisborrel }}</textarea>
+			{% if errors.inventarisborrel %}<span class="help-inline">{{ errors.inventarisborrel|join|raw }}</span>{% endif %}
+		</div>
+	</div>
+
 	{# opmerkingen #}
 	<div class="control-group{% if errors.opmerkingen %} error{% endif %}">
 		<label class="control-label" for="opmerkingen">Opmerkingen</label>
 		<div class="controls">
-			<textarea id="opmerkingen" name="opmerkingen" placeholder="opmerkingen" cols="40">{{ formdata.opmerkingen }}</textarea>
+			<textarea id="opmerkingen" name="opmerkingen" placeholder="opmerkingen" cols="40" rows="4">{{ formdata.opmerkingen }}</textarea>
 			{% if errors.opmerkingen %}<span class="help-inline">{{ errors.opmerkingen|join|raw }}</span>{% endif %}
 		</div>
 	</div>

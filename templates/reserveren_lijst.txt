@@ -8,6 +8,8 @@
 {% endif %}
 {% if formdata.vereniging %}vereniging/afdeling: {{ formdata.vereniging }}
 {% endif %}
+{% if formdata.inventarisborrel %}inventarisborrel: {{ formdata.inventarisborrel }}
+{% endif %}
 {% if formdata.opmerkingen %}opmerkingen: {{ formdata.opmerkingen }}
 {% endif %}
 
