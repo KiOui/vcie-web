@@ -48,11 +48,11 @@ if (empty($_POST)) {
 				if (isset($form['ccmij']) && $form['ccmij']) {
 					$mail->AddCC($form['email'], $form['naam']);
 				}
-				$mail->SetFrom('no-reply@voorraadcie.nl', 'VoorraadSys');
+				$mail->SetFrom('no-reply@voorraadcie.nl', 'voorraadcie.nl');
 				$mail->ClearReplyTos(); // Bij SetFrom wordt no-reply toegevoegd als Reply-To
 				$mail->AddReplyTo($form['email'], $form['naam']);
 				$mail->Body = $body;
-				$mail->Subject = 'Bestelling "' . $form['gelegenheid'] . '" van ' . $form['naam'];
+				$mail->Subject = '[reservering] "' . $form['gelegenheid'] . '" van ' . $form['naam'];
 				$isc_template = $twig->loadTemplate('reserveren_isc.isc');
 				$mail->AddStringAttachment(
 					$mail->FixEOL($isc_template->render(array('formdata' => $form))),
