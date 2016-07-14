@@ -2,6 +2,7 @@
 
 require('bootstrap.php');
 require_once(LIB_DIR . 'class.phpmailer.php');
+require_once(LIB_DIR . 'class.smtp.php');
 
 
 if (empty($_POST)) {
@@ -42,6 +43,11 @@ if (empty($_POST)) {
 				$body = $template->render(array('formdata' => $form, 'errors' => $errors, 'validator' => $validator));
 				
 				$mail = new PHPMailer(true);
+				$mail->isSMTP();
+				//$mail->SMTPDebug = 3;
+				$mail->Host = '127.0.0.1';
+				$mail->SMTPAuth = false;
+				$mail->SMTPAutoTLS = false;
 				$mail->CharSet = 'utf-8';
 				$mail->SetWordWrap();
 				$mail->AddAddress($reservering_emailadres);
