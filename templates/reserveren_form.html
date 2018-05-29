@@ -412,6 +412,16 @@ $(document).ready(function _vcieReadyHandler() {
 		</div>
 	</div>
 
+	{# perculatoren #}
+	<div class="control-group{% if errors.perculatoren %} error{% endif %}">
+		<div class="controls">
+			<label class="checkbox">
+				<input type="checkbox" name="perculatoren" {% if formdata.perculatoren %} checked{% endif %}>
+				perculatoren <small>(geen échte perculatoren, maar koffie- en theekannen)</small>
+			</label>
+		</div>
+	</div>
+
 	{# kookplaten #}
 	<div class="control-group{% if errors.kookplaten %} error{% endif %}">
 		<div class="controls">
