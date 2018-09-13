@@ -18,7 +18,7 @@
 <form action="reserveren.php" method="post">
 	{{ csrf_token_tag|raw }}
 	<input type="hidden" name="confirm">
-	{% for item in ['naam', 'email', 'dag', 'maand', 'jaar', 'beginTijd', 'eindTijd', 'gelegenheid', 'vereniging', 'kantine', 'inventarisborrel', 'opmerkingen', 'krattenBier', 'rodeWijn', 'witteWijnZoet', 'witteWijnDroog', 'rose', 'colaRegular', 'colaLight', 'fanta', 'sprite', 'spaRood', 'appelsap', 'sinaasappelsap', 'cassis', 'iceTeaSparkling', 'iceTeaNoBubbles', 'rioFiestaMix', 'AHCocktailNoten', 'stapelglazen', 'wijnglazen', 'muziekkastsleutel', 'statafels', 'kookplaten', 'pannen', 'warmhoudbakken', 'brandpasta', 'steekwagen'] %}
+	{% for item in ['naam', 'email', 'dag', 'maand', 'jaar', 'beginTijd', 'eindTijd', 'gelegenheid', 'vereniging', 'kantine', 'inventarisborrel', 'opmerkingen', 'krattenBier', 'rodeWijn', 'witteWijnZoet', 'witteWijnDroog', 'rose', 'colaRegular', 'colaLight', 'fanta', 'sprite', 'spaRood', 'appelsap', 'sinaasappelsap', 'cassis', 'iceTeaSparkling', 'iceTeaNoBubbles', 'rioFiestaMix', 'AHCocktailNoten', 'stapelglazen', 'wijnglazen', 'muziekkastsleutel', 'statafels', 'perculatoren', 'kookplaten', 'pannen', 'warmhoudbakken', 'brandpasta', 'steekwagen'] %}
 	<input type="hidden" name="{{ item }}" value="{{ formdata[item] }}">
 	{% endfor %}
 		<label class="checkbox"><em>
