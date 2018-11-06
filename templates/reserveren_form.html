@@ -77,21 +77,21 @@ $(document).ready(function _vcieReadyHandler() {
 	<h1>Reserveren</h1>
 </div>
 
-<p>Reserveringen moet je minimaal drie weken van tevoren plaatsen. Mocht dit niet gelukt zijn, dan kun je het alsnog proberen. Het zit er dan wel dik in dat je reservering geweigerd wordt.</p>
+<p>You have to place a reservation at least three weeks in advance. If you have failed to do this, you can still make an attempt. However, there's a fat chance that your reservation will be denied.</p>
 
-<p>Voor hele speciale verzoeken of bestellingen, zoals bij constitutieborrels, festivals of grote beurzen wil je een e-mailtje sturen naar <tt>{{ email("olympusreservering@science.ru.nl")|raw }}</tt>. In alle andere gevallen kun je het formulier invullen.</p>
+<p>For very special requests or reserveren, such as festivals or fairs, you might want to send an e-mail to <tt>{{ email("olympusreservering@science.ru.nl")|raw }}</tt>. In other cases, just fill in the form.</p>
 
 <form class="form-horizontal" action="reserveren.php" method="post">
 {{ csrf_token_tag|raw }}
 
 <fieldset>
-	<legend>Algemeen</legend>
+	<legend>General stuffs</legend>
 
 	{# naam #}
 	<div class="control-group{% if errors.naam %} error{% endif %}">
-		<label class="control-label" for="naam">Naam</label>
+		<label class="control-label" for="naam">Name</label>
 		<div class="controls">
-			<input id="naam" type="text" name="naam" value="{{ formdata.naam }}" placeholder="naam" required>
+			<input id="naam" type="text" name="naam" value="{{ formdata.naam }}" placeholder="name" required>
 			{% if errors.naam %}<span class="help-inline">{{ errors.naam|join|raw }}</span>{% endif %}
 		</div>
 	</div>
@@ -107,7 +107,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# datum #}
 	<div class="control-group{% if errors.krattenBier %} maand{% endif %}">
-		<label class="control-label" for="dag">Datum <small>(dag &ndash; maand &ndash; jaar)</small></label>
+		<label class="control-label" for="dag">Date <small>(day &ndash; month &ndash; year)</small></label>
 		<div class="controls">
 			<input id="dag" type="number" name="dag" value="{{ formdata.dag }}" required> &ndash;
 			<input id="maand" type="number" name="maand" value="{{ formdata.maand|default("+7 days"|date("m")) }}" required> &ndash;
@@ -122,11 +122,11 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# begin-/eindtijd #}
 	<div class="control-group{% if errors.beginTijd or errors.eindTijd %} error{% endif %}">
-		<label class="control-label" for="beginTijd">Begin-/eindtijd</label>
+		<label class="control-label" for="beginTijd">Start/end time</label>
 		<div class="controls">
-			van
+			from
 			<input id="beginTijd" name="beginTijd" type="text" maxlength="5" value="{{ formdata.beginTijd|default('16:00') }}" required />
-			tot
+			until
 			<input id="eindTijd" name="eindTijd" type="text" maxlength="5" value="{{ formdata.eindTijd|default('21:00') }}" required />
 			{% spaceless %}
 			<div class="help-inline">
@@ -140,18 +140,18 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# gelegenheid #}
 	<div class="control-group{% if errors.gelegenheid %} error{% endif %}">
-		<label class="control-label" for="gelegenheid">Gelegenheid</label>
+		<label class="control-label" for="gelegenheid">Event</label>
 		<div class="controls">
-			<input id="gelegenheid" type="text" name="gelegenheid" value="{{ formdata.gelegenheid }}" placeholder="gelegenheid" required>
+			<input id="gelegenheid" type="text" name="gelegenheid" value="{{ formdata.gelegenheid }}" placeholder="event" required>
 			{% if errors.gelegenheid %}<span class="help-inline">{{ errors.gelegenheid|join|raw }}</span>{% endif %}
 		</div>
 	</div>
 
 	{# vereniging #}
 	<div class="control-group{% if errors.vereniging %} error{% endif %}">
-		<label class="control-label" for="vereniging">Vereniging <small>(of afdeling ofzo)</small></label>
+		<label class="control-label" for="vereniging">Association</label>
 		<div class="controls">
-			<input class="typeahead" id="vereniging" type="text" name="vereniging" value="{{ formdata.vereniging }}" placeholder="vereniging" required
+			<input class="typeahead" id="vereniging" type="text" name="vereniging" value="{{ formdata.vereniging }}" placeholder="association" required
 			data-provide="typeahead" data-source='["Sigma", "Beevee", "Thalia", "Marie Curie", "Leonardo", "Desda", "Olympus", "CognAC"]'>
 			{% if errors.vereniging %}<span class="help-inline">{{ errors.vereniging|join|raw }}</span>{% endif %}
 		</div>
@@ -159,12 +159,12 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# kantine #}
 	<div class="control-group{% if errors.kantine %} error{% endif %}">
-		<label class="control-label" for="kantine">Kantine</label>
+		<label class="control-label" for="kantine">Canteen</label>
 		<div class="controls">
 			<select id="kantine" name="kantine">
-				<option value=""{% if formdata.kantine == '' %} selected{% endif %}>geen</option>
-				<option value="zuidkantine"{% if formdata.kantine == 'zuid' %} selected{% endif %}>Zuid</option>
-				<option value="noordkantine"{% if formdata.kantine == 'noord' %} selected{% endif %}>Noord</option>
+				<option value=""{% if formdata.kantine == '' %} selected{% endif %}>none</option>
+				<option value="zuidkantine"{% if formdata.kantine == 'south' %} selected{% endif %}>Zuid</option>
+				<option value="noordkantine"{% if formdata.kantine == 'north' %} selected{% endif %}>Noord</option>
 			</select>
 			{% if errors.kantine %}<span class="help-inline">{{ errors.kantine|join|raw }}</span>{% endif %}
 		</div>
@@ -172,10 +172,10 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# inventarisborrel #}
 	<div class="control-group{% if errors.inventarisborrel %} error{% endif %}">
-		<label class="control-label" for="inventarisborrel">Overige inventarisborrel</label>
+		<label class="control-label" for="inventarisborrel">"Overige inventarisborrel"</label>
 		<div class="controls">
 			<textarea id="inventarisborrel" name="inventarisborrel"
-			placeholder="Heb je een 'overige inventarisborrel', geef het hier aan. Geef ook aan wie er nuchter blijven."
+			placeholder="If this is the case, also put down who'll be sober during the event."
 			cols="40" rows="4">{{ formdata.inventarisborrel }}</textarea>
 			{% if errors.inventarisborrel %}<span class="help-inline">{{ errors.inventarisborrel|join|raw }}</span>{% endif %}
 		</div>
@@ -183,19 +183,19 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# opmerkingen #}
 	<div class="control-group{% if errors.opmerkingen %} error{% endif %}">
-		<label class="control-label" for="opmerkingen">Opmerkingen</label>
+		<label class="control-label" for="opmerkingen">Comments</label>
 		<div class="controls">
-			<textarea id="opmerkingen" name="opmerkingen" placeholder="opmerkingen" cols="40" rows="4">{{ formdata.opmerkingen }}</textarea>
+			<textarea id="opmerkingen" name="opmerkingen" placeholder="comments" cols="40" rows="4">{{ formdata.opmerkingen }}</textarea>
 			{% if errors.opmerkingen %}<span class="help-inline">{{ errors.opmerkingen|join|raw }}</span>{% endif %}
 		</div>
 	</div>
 </fieldset>
 <fieldset>
-	<legend>Drank en snacks <small>(vul getallen in)</small></legend>
+	<legend>Fluids ans solids <small>(fill in numbers)</small></legend>
 
 	{# krattenBier #}
 	<div class="control-group{% if errors.krattenBier %} error{% endif %}">
-		<label class="control-label" for="krattenBier">Kratten bier</label>
+		<label class="control-label" for="krattenBier">Crates of beer</label>
 		<div class="controls">
 			<input class="span1" id="krattenBier" type="text" name="krattenBier" value="{{ formdata.krattenBier }}" min="0" >
 			{% if errors.krattenBier %}<span class="help-inline">{{ errors.krattenBier|join|raw }}</span>{% endif %}
@@ -204,7 +204,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	<legend>
 		<small>
-			Wijn
+			Wine
 			(shortcut:
 				<div class="btn-group">
 					<span class="btn btn-mini" id="wijnShortcutMin">&#8722;1</span>
@@ -216,7 +216,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# rodeWijn #}
 	<div class="control-group{% if errors.rodeWijn %} error{% endif %} wijn">
-		<label class="control-label" for="rodeWijn">Rode wijn</label>
+		<label class="control-label" for="rodeWijn">Red</label>
 		<div class="controls">
 			<input class="span1" id="rodeWijn" type="text" name="rodeWijn" value="{{ formdata.rodeWijn }}" min="0" >
 			{% if errors.rodeWijn %}<span class="help-inline">{{ errors.rodeWijn|join|raw }}</span>{% endif %}
@@ -225,7 +225,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# witteWijnZoet #}
 	<div class="control-group{% if errors.witteWijnZoet %} error{% endif %} wijn">
-		<label class="control-label" for="witteWijnZoet">Witte wijn (zoet)</label>
+		<label class="control-label" for="witteWijnZoet">Sweet</label>
 		<div class="controls">
 			<input class="span1" id="witteWijnZoet" type="text" name="witteWijnZoet" value="{{ formdata.witteWijnZoet }}" min="0" >
 			{% if errors.witteWijnZoet %}<span class="help-inline">{{ errors.witteWijnZoet|join|raw }}</span>{% endif %}
@@ -234,7 +234,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# witteWijnDroog #}
 	<div class="control-group{% if errors.witteWijnDroog %} error{% endif %} wijn">
-		<label class="control-label" for="witteWijnDroog">Witte wijn (droog)</label>
+		<label class="control-label" for="witteWijnDroog">Dry</label>
 		<div class="controls">
 			<input class="span1" id="witteWijnDroog" type="text" name="witteWijnDroog" value="{{ formdata.witteWijnDroog }}" min="0" >
 			{% if errors.witteWijnDroog %}<span class="help-inline">{{ errors.witteWijnDroog|join|raw }}</span>{% endif %}
@@ -252,7 +252,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	<legend>
 		<small>
-			Fris
+			Non-alcoholic fluids
 			(shortcut:
 				<div class="btn-group">
 					<span class="btn btn-mini" id="frisShortcutMin">&#8722;1</span>
@@ -265,7 +265,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# colaRegular #}
 	<div class="control-group{% if errors.colaRegular %} error{% endif %} fris">
-		<label class="control-label" for="colaRegular">Cola regular</label>
+		<label class="control-label" for="colaRegular">Coke</label>
 		<div class="controls">
 			<input class="span1" id="colaRegular" type="text" name="colaRegular" value="{{ formdata.colaRegular }}" min="0" >
 			{% if errors.colaRegular %}<span class="help-inline">{{ errors.colaRegular|join|raw }}</span>{% endif %}
@@ -274,7 +274,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# colaLight #}
 	<div class="control-group{% if errors.colaLight %} error{% endif %} fris">
-		<label class="control-label" for="colaLight">Cola light</label>
+		<label class="control-label" for="colaLight">Diet coke</label>
 		<div class="controls">
 			<input class="span1" id="colaLight" type="text" name="colaLight" value="{{ formdata.colaLight }}" min="0" >
 			{% if errors.colaLight %}<span class="help-inline">{{ errors.colaLight|join|raw }}</span>{% endif %}
@@ -292,7 +292,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# sprite #}
 	<div class="control-group{% if errors.sprite %} error{% endif %} fris">
-		<label class="control-label" for="sprite">Sprite</label>
+		<label class="control-label" for="sprite">7-Up</label>
 		<div class="controls">
 			<input class="span1" id="sprite" type="text" name="sprite" value="{{ formdata.sprite }}" min="0" >
 			{% if errors.sprite %}<span class="help-inline">{{ errors.sprite|join|raw }}</span>{% endif %}
@@ -301,7 +301,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# spaRood #}
 	<div class="control-group{% if errors.spaRood %} error{% endif %} fris">
-		<label class="control-label" for="spaRood">Spa rood</label>
+		<label class="control-label" for="spaRood">Fizzy water</label>
 		<div class="controls">
 			<input class="span1" id="spaRood" type="text" name="spaRood" value="{{ formdata.spaRood }}" min="0" >
 			{% if errors.spaRood %}<span class="help-inline">{{ errors.spaRood|join|raw }}</span>{% endif %}
@@ -310,7 +310,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# appelsap #}
 	<div class="control-group{% if errors.appelsap %} error{% endif %} fris">
-		<label class="control-label" for="appelsap">Appelsap</label>
+		<label class="control-label" for="appelsap">Apple juice</label>
 		<div class="controls">
 			<input class="span1" id="appelsap" type="text" name="appelsap" value="{{ formdata.appelsap }}" min="0" >
 			{% if errors.appelsap %}<span class="help-inline">{{ errors.appelsap|join|raw }}</span>{% endif %}
@@ -319,7 +319,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# sinaasappelsap #}
 	<div class="control-group{% if errors.sinaasappelsap %} error{% endif %} fris">
-		<label class="control-label" for="sinaasappelsap">Sinaasappelsap</label>
+		<label class="control-label" for="sinaasappelsap">Jus d'Orange</label>
 		<div class="controls">
 			<input class="span1" id="sinaasappelsap" type="text" name="sinaasappelsap" value="{{ formdata.sinaasappelsap }}" min="0" >
 			{% if errors.sinaasappelsap %}<span class="help-inline">{{ errors.sinaasappelsap|join|raw }}</span>{% endif %}
@@ -337,7 +337,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# iceTeaSparkling #}
 	<div class="control-group{% if errors.iceTeaSparkling %} error{% endif %} fris">
-		<label class="control-label" for="iceTeaSparkling">Ice tea (sparkling)</label>
+		<label class="control-label" for="iceTeaSparkling">Ice tea (fizzy)</label>
 		<div class="controls">
 			<input class="span1" id="iceTeaSparkling" type="text" name="iceTeaSparkling" value="{{ formdata.iceTeaSparkling }}" min="0" >
 			{% if errors.iceTeaSparkling %}<span class="help-inline">{{ errors.iceTeaSparkling|join|raw }}</span>{% endif %}
@@ -346,7 +346,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# iceTeaNoBubbles #}
 	<div class="control-group{% if errors.iceTeaNoBubbles %} error{% endif %} fris">
-		<label class="control-label" for="iceTeaNoBubbles">Ice tea (no bubbles)</label>
+		<label class="control-label" for="iceTeaNoBubbles">Ice tea (flat)</label>
 		<div class="controls">
 			<input class="span1" id="iceTeaNoBubbles" type="text" name="iceTeaNoBubbles" value="{{ formdata.iceTeaNoBubbles }}" min="0" >
 			{% if errors.iceTeaNoBubbles %}<span class="help-inline">{{ errors.iceTeaNoBubbles|join|raw }}</span>{% endif %}
@@ -364,7 +364,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# AHCocktailNoten #}
 	<div class="control-group{% if errors.AHCocktailNoten %} error{% endif %}">
-		<label class="control-label" for="AHCocktailNoten">Cocktail noten</label>
+		<label class="control-label" for="AHCocktailNoten">Cocktail nuts</label>
 		<div class="controls">
 			<input class="span1" id="AHCocktailNoten" type="text" name="AHCocktailNoten" value="{{ formdata.AHCocktailNoten }}" min="0" >
 			{% if errors.AHCocktailNoten %}<span class="help-inline">{{ errors.AHCocktailNoten|join|raw }}</span>{% endif %}
@@ -373,7 +373,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# stapelglazen #}
 	<div class="control-group{% if errors.stapelglazen %} error{% endif %}">
-		<label class="control-label" for="stapelglazen">Krat stapelglazen</label>
+		<label class="control-label" for="stapelglazen">Crate of stacking glasses</label>
 		<div class="controls">
 			<input class="span1" id="stapelglazen" type="text" name="stapelglazen" value="{{ formdata.stapelglazen }}" min="0">
 			{% if errors.stapelglazen %}<span class="help-inline">{{ errors.stapelglazen|join|raw }}</span>{% endif %}
@@ -382,7 +382,7 @@ $(document).ready(function _vcieReadyHandler() {
 
 	{# wijnglazen #}
 	<div class="control-group{% if errors.wijnglazen %} error{% endif %}">
-		<label class="control-label" for="wijnglazen">Krat wijnglazen</label>
+		<label class="control-label" for="wijnglazen">Crate of wine glasses</label>
 		<div class="controls">
 			<input class="span1" id="wijnglazen" type="text" name="wijnglazen" value="{{ formdata.wijnglazen }}" min="0">
 			{% if errors.wijnglazen %}<span class="help-inline">{{ errors.wijnglazen|join|raw }}</span>{% endif %}
@@ -397,18 +397,18 @@ $(document).ready(function _vcieReadyHandler() {
 		<div class="controls">
 			<label class="checkbox">
 				<input type="checkbox" name="muziekkastsleutel" {% if formdata.muziekkastsleutel %} checked{% endif %}>
-				muziekkastsleutel
+				"muziekkastsleutel"
 			</label>
 		</div>
 	</div>
 
 	{# statafels #}
 	<div class="control-group{% if errors.statafels %} error{% endif %}">
-		<label class="control-label" for="statafels">Statafels</label>
+		<label class="control-label" for="statafels">High tables</label>
 		<div class="controls">
 			<input class="span1" id="statafels" type="text" name="statafels" value="{{ formdata.statafels }}" min="0">
 			{% if errors.statafels %}<span class="help-inline">{{ errors.statafels|join|raw }}</span>
-			{% else %}<span class="help-inline">(we hebben er in totaal 9)</span>{% endif %}
+			{% else %}<span class="help-inline">(we have 9 in total)</span>{% endif %}
 		</div>
 	</div>
 
@@ -417,7 +417,7 @@ $(document).ready(function _vcieReadyHandler() {
 		<div class="controls">
 			<label class="checkbox">
 				<input type="checkbox" name="perculatoren" {% if formdata.perculatoren %} checked{% endif %}>
-				perculatoren <small>(geen échte perculatoren, maar koffie- en theekannen)</small>
+				coffeepots
 			</label>
 		</div>
 	</div>
@@ -427,7 +427,7 @@ $(document).ready(function _vcieReadyHandler() {
 		<div class="controls">
 			<label class="checkbox">
 				<input type="checkbox" name="kookplaten" {% if formdata.kookplaten %} checked{% endif %}>
-				kookplaten
+				heating pads
 			</label>
 		</div>
 	</div>
@@ -437,7 +437,7 @@ $(document).ready(function _vcieReadyHandler() {
 		<div class="controls">
 			<label class="checkbox">
 				<input type="checkbox" name="pannen" {% if formdata.pannen %} checked{% endif %}>
-				pannen
+				pots
 			</label>
 		</div>
 	</div>
@@ -447,7 +447,7 @@ $(document).ready(function _vcieReadyHandler() {
 		<div class="controls">
 			<label class="checkbox">
 				<input type="checkbox" name="warmhoudbakken" {% if formdata.warmhoudbakken %} checked{% endif %}>
-				warmhoudbakken
+				warming trays
 			</label>
 		</div>
 	</div>
@@ -457,7 +457,7 @@ $(document).ready(function _vcieReadyHandler() {
 		<div class="controls">
 			<label class="checkbox">
 				<input type="checkbox" name="brandpasta" {% if formdata.brandpasta %} checked{% endif %}>
-				brandpasta
+				petroleum jelly
 			</label>
 		</div>
 	</div>
@@ -467,7 +467,7 @@ $(document).ready(function _vcieReadyHandler() {
 		<div class="controls">
 			<label class="checkbox">
 				<input type="checkbox" name="steekwagen" {% if formdata.steekwagen %} checked{% endif %}>
-				steekwagen
+				handtruck
 			</label>
 		</div>
 	</div>
