@@ -15,11 +15,11 @@ if (empty($_POST)) {
 	$validator->addRule('csrfmiddlewaretoken', $ruleCSRFToken);
 	$validator->addRule(array('naam', 'email', 'dag', 'maand', 'jaar', 'gelegenheid', 'vereniging', 'beginTijd', 'eindTijd'), $ruleRequired);
 	$validator->addRule('email', $ruleEmail);
-	$validator->addRule(array('dag', 'maand'), new MinRule(1, 'Een dag of maand onder de 1 maakt helemaal geen sense.'));
+	$validator->addRule(array('dag', 'maand'), new MinRule(1, 'Days or months below 1 do not make any fucking sense.'));
 	$validator->addRule('dag', new MaxRule(31, 'Dag groter dan 31?'));
 	$validator->addRule('maand', new MaxRule(12, 'Maand groter dan 12?'));
-	$validator->addRule(array('beginTijd', 'eindTijd'), new RegexRule('/^$|^\d\d?[:.]\d?\d$/i', 'sorry, ik snap deze tijd niet, probeer iets als &lsquo;13:37&rsquo;'));
-	$validator->addRule('kantine', new RegexRule('/^$|^(zuid|noord)kantine$/i', "geen geldige kantine :P"));
+	$validator->addRule(array('beginTijd', 'eindTijd'), new RegexRule('/^$|^\d\d?[:.]\d?\d$/i', 'I don\'t get this time format, please try something like &lsquo;13:37&rsquo;'));
+	$validator->addRule('kantine', new RegexRule('/^$|^(zuid|noord)kantine$/i', "this is not a canteen and you know it :P"));
 	$validator->addRules(array(
 		'krattenBier', 'rodeWijn', 'witteWijnZoet', 'witteWijnDroog', 'rose',
 		'colaRegular', 'colaLight', 'fanta', 'sprite', 'spaRood',
@@ -41,7 +41,7 @@ if (empty($_POST)) {
 			try {
 				$template = $twig->loadTemplate('reserveren_email.txt');
 				$body = $template->render(array('formdata' => $form, 'errors' => $errors, 'validator' => $validator));
-				
+
 				$mail = new PHPMailer(true);
 				$mail->isSMTP();
 				//$mail->SMTPDebug = 3;

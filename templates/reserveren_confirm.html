@@ -2,14 +2,14 @@
 {% extends 'base.html' %}
 
 {% block title %}
-{{ parent() }} - reservering bevestigen
+{{ parent() }} - confirm reservation
 {% endblock %}
 
 {% block content %}
 
-<h2>Reservering bevestigen</h2>
+<h2>Confirm reservation</h2>
 
-<p>De volgende email zal gestuurd worden, al er iets niet klopt kun je de terugknop van je browser spammen.</p>
+<p>This is the email that will be sent. If something is incorrect you can spam the "back" button in your browser.</p>
 
 <pre>
 {% include 'reserveren_email.txt' %}
@@ -22,10 +22,10 @@
 	<input type="hidden" name="{{ item }}" value="{{ formdata[item] }}">
 	{% endfor %}
 		<label class="checkbox"><em>
-		Stuur mij een kopie
+		Send me a copy
 		<input type="checkbox" name="ccmij" checked>
 	</em></label>
-	<input class="btn btn-primary btn-large" type="submit" name="submit" value="Reservering bevestigen">
+	<input class="btn btn-primary btn-large" type="submit" name="submit" value="Confirm reservation">
 </form>
 
 {% endblock %}
