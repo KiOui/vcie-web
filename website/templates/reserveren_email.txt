@@ -1,4 +1,3 @@
-{# vim: set noet ts=4 sw=4: #}
 {{ formdata.naam }} van {{ formdata.vereniging }} wil graag de volgende bestelling doen:
 
 Datum/tijd: {{ formdata.datetime|date('d-m-Y') }} van {{ formdata.beginTijd }} tot {{ formdata.eindTijd }}

@@ -19,7 +19,7 @@ if (empty($_POST)) {
 	$validator->addRule('dag', new MaxRule(31, 'Dag groter dan 31?'));
 	$validator->addRule('maand', new MaxRule(12, 'Maand groter dan 12?'));
 	$validator->addRule(array('beginTijd', 'eindTijd'), new RegexRule('/^$|^\d\d?[:.]\d?\d$/i', 'I don\'t get this time format, please try something like &lsquo;13:37&rsquo;'));
-	$validator->addRule('kantine', new RegexRule('/^$|^(zuid|noord)kantine$/i', "this is not a canteen and you know it :P"));
+	$validator->addRule('kantine', new RegexRule('/^$|^temporary$/i', "this is not a canteen and you know it :P"));
 	$validator->addRules(array(
 		'krattenBier', 'rodeWijn', 'witteWijnZoet', 'witteWijnDroog', 'rose',
 		'colaRegular', 'colaLight', 'fanta', 'sprite', 'spaRood',
@@ -54,7 +54,7 @@ if (empty($_POST)) {
 				if (isset($form['ccmij']) && $form['ccmij']) {
 					$mail->AddCC($form['email'], $form['naam']);
 				}
-				$mail->SetFrom('no-reply@voorraadcie.nl', 'voorraadcie.nl');
+				$mail->SetFrom('no-reply@canteen-reservations.science.ru.nl', 'Canteen Reservations');
 				$mail->ClearReplyTos(); // Bij SetFrom wordt no-reply toegevoegd als Reply-To
 				$mail->AddReplyTo($form['email'], $form['naam']);
 				$mail->Body = $body;

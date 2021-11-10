@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% block head %}
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %}canteen-reservations{% endblock %}</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" media="all" charset="utf-8">
+	<link rel="shortcut icon" href="/favicon.png">
+	<style>
+		{% block style %}
+		body {
+			padding-top: 40px;
+		}
+		a.brand {
+			font-variant: small-caps;
+		}
+		.container-narrow {
+			max-width: 700px;
+			margin: 0 auto;
+		}
+		{% endblock %}
+	</style>
+
+	{% block scripts %}
+		<script type="text/javascript" charset="utf-8" src="/js/jquery.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/js/bootstrap.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="/js/common.js"></script>
+	{% endblock %}
+{% endblock %}
+</head>
+<body>
+	 <div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container container-narrow">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand" href=".">canteen-reservations</a>
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li><a href="/reserveren.php">Place reservation</a></li>
+						<li><a href="/agenda.php">Our calendar</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="content" class="container container-narrow">
+		{% block content %}{% endblock %}
+	</div>
+	<hr>
+	<div id="footer" class="container container-narrow">
+		{% block footer %}{% endblock %}
+	</div>
+</body>
+</html>

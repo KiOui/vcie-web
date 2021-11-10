@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% set iframe_url = "https://www.google.com/calendar/embed?title=Voorraadcie%20reserveringen&amp;showTitle=0&amp;showPrint=0&amp;showTz=0&amp;height=600&amp;wkst=2&amp;hl=nl&amp;bgcolor=%23ffffff&amp;src=b17evjnmba8no3fr8b9rf0f8sc%40group.calendar.google.com&amp;color=%232952A3&amp;src=nmhous87hn5ktiih2h3ncu598o%40group.calendar.google.com&amp;color=%23A32929&amp;ctz=Europe%2FAmsterdam" %}
+
+{% block content %}
+	<div class="page-header">
+		<h1>Our calendar</h1>
+	</div>
+	<p>The following reservations are registered with us. This calendar can also be found on the <a href="https://olympus.science.ru.nl/committees/noordkantine-committee/">olympus website</a>.</p>
+	<h3>Voorraadcie reservations <small><a href="{{ iframe_url|raw }}">direct link</a></small></h3>
+	<iframe src="{{ iframe_url|raw }}" width="700" height="600" frameborder="0" scrolling="no"></iframe>
+{% endblock %}

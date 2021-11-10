@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ parent() }} - confirm reservation
+{% endblock %}
+
+{% block content %}
+
+	<h2>Confirm reservation</h2>
+
+	<p>This is the email that will be sent. If something is incorrect you can spam the "back" button in your browser.</p>
+
+	<pre>
+		{% include 'reserveren_email.txt' %}
+	</pre>
+
+	<form action="/reserveren.php" method="post">
+		{{ csrf_token_tag|raw }}
+		<input type="hidden" name="confirm">
+		{% for item in ['naam', 'email', 'dag', 'maand', 'jaar', 'beginTijd', 'eindTijd', 'gelegenheid', 'vereniging', 'kantine', 'inventarisborrel', 'opmerkingen', 'krattenBier', 'rodeWijn', 'witteWijnZoet', 'witteWijnDroog', 'rose', 'colaRegular', 'colaLight', 'fanta', 'sprite', 'spaRood', 'appelsap', 'sinaasappelsap', 'cassis', 'iceTeaSparkling', 'iceTeaNoBubbles', 'rioFiestaMix', 'AHCocktailNoten', 'stapelglazen', 'wijnglazen', 'muziekkastsleutel', 'statafels', 'perculatoren', 'kookplaten', 'pannen', 'warmhoudbakken', 'brandpasta', 'steekwagen'] %}
+			<input type="hidden" name="{{ item }}" value="{{ formdata[item] }}">
+		{% endfor %}
+		<label class="checkbox"><em>
+		Send me a copy
+		<input type="checkbox" name="ccmij" checked>
+		</em></label>
+		<input class="btn btn-primary btn-large" type="submit" name="submit" value="Confirm reservation">
+	</form>
+
+{% endblock %}
